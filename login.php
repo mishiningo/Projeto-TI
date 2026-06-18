@@ -41,11 +41,11 @@
     <link rel="stylesheet" href="estiloLogin.css">
   </head>
   <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <form class="LoginForm" method ="post">
+    <div class="container-fluid d-flex text-center align-items-center min-vh-100">
+        <div class="row w-100 justify-content-center">
+            <form class="LoginForm myHomeStyle" method ="post">
                 <a href="login.php">
-                    <!-- <image src="imagens/logo.png"> -->
+                    <image src="imagens/logo.png" class ="rounded float-center logo">
                 </a>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Utilizador</label>
@@ -55,7 +55,7 @@
                     <label for="exampleInputPassword1" class="form-label">Palavra-passe</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Sua palavra-passe" name="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-myhome">Enviar</button>
             </form>
         </div>
     </div>

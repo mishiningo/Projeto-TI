@@ -1,9 +1,43 @@
-body{
-    background-image: url("/imagens/logo.png");
+body {
+    background-color: #F8FAFC;           
+} 
+
+    
+.LoginForm {
+    width: 350px;
+    padding: 15px;
+}
+
+.logo {
+    width: 300px;
+    height: 200px;
+    margin: 10px ;
+}
+
+.myHomeStyle {
+    background-color: #00A8A8;
+    color: #ffffff;
+    border: 1px solid #00A8A8;
+    border-radius: 10px;
+    padding: 7px;
 
 }
 
-.LoginForm{
-    width: 350px;
-    padding: 15px;
+.btn-myhome {
+    background-color: #F8FAFC;
+    color: #1E293B;            
+    border: 1px solid #E2E8F0;
+}
+
+.btn-myhome:hover {
+    background-color: #F1F5F9;
+    border-color: #CBD5E1;
+    color: #0f172a;
+}
+
+.btn-myhome:active, .btn-myhome:focus {
+    background-color: #E2E8F0 ;
+    border-color: #94A3B8;
+    color: #0f172a;
+    box-shadow: 0 0 0 0.25rem rgba(226, 232, 240, 0.5);
 }
