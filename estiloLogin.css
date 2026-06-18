@@ -1,6 +1,6 @@
 body{
-    background-image: "/imagens/logo.png";
-    
+    background-image: url("/imagens/logo.png");
+
 }
 
 .LoginForm{

@@ -38,14 +38,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login em MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="estiloLogin.css"> -->
+    <link rel="stylesheet" href="estiloLogin.css">
   </head>
   <body>
     <div class="container">
         <div class="row justify-content-center">
             <form class="LoginForm" method ="post">
                 <a href="login.php">
-                    <image src="imagens/logo.png">
+                    <!-- <image src="imagens/logo.png"> -->
                 </a>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Utilizador</label>
