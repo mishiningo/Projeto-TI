@@ -45,7 +45,7 @@
         <div class="row justify-content-center">
             <form class="LoginForm" method ="post">
                 <a href="login.php">
-                    <!-- <image src="imagens/logo.png"> -->
+                    <image src="imagens/logo.png">
                 </a>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Utilizador</label>

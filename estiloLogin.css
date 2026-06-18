@@ -1,3 +1,8 @@
+body{
+    background-image: "/imagens/logo.png";
+    
+}
+
 .LoginForm{
     width: 350px;
     padding: 15px;
