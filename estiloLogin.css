@@ -1,8 +1,10 @@
-body {
-    background-color: #F8FAFC;           
-} 
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-    
+body {
+    background-color: #F4F3EF;
+    font-family: Outfit, sans-serif;           
+} 
+   
 .LoginForm {
     width: 350px;
     padding: 15px;
