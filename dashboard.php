@@ -18,17 +18,23 @@
 <body>
     <nav class="navbar navbar-expand-sm bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">DashBoard</a>
+			<a class="navbar-brand" href="#"><img src=imagens/logo.png width=20%>DashBoard</a>
 		
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active target_self" aria-current="page" href="dashboard.php">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Histórico</a>
+					<a class="nav-link active target_self" href="alarme.php">Alarme</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active target_self" href="historico.php">Histórico</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active target_self" href="perfil.php">Perfil</a>
 				</li>
 			</ul>
-			<div style="margin-left: 75%;">
+			<div style="margin-left: 45%;">
 			<a href="login.php"><button type="button" class="btn btn-outline-dark">Logout</button></a>
 			</div>
 		</div>
