@@ -1,0 +1,134 @@
+#include <WiFi101.h>
+#include <ArduinoHttpClient.h>
+#include <SPI.h>
+#include <WiFiUdp.h> //Pré-instalada com o Arduino IDE
+#include <TimeLib.h>
+#include <NTPClient.h>
+
+//Declaração dos pinos dos Leds
+int green = 14;
+int yellow = 13;
+int red = 12;
+
+//Definição dos dados WiFi
+char SSID[] = "labs";
+char PASS_WIFI[] = "1nv3nt@r2023_IPLEIRIA";
+
+//Definição do servidor de envio
+char URL[] = "iot.dei.estg.ipleiria.pt";
+int PORTO = 80;
+
+WiFiClient clienteWifi;
+HttpClient clienteHTTP = HttpClient(clienteWifi, URL, PORTO);
+
+WiFiUDP clienteUDP;
+//Servidor de NTP do IPLeiria: ntp.ipleiria.pt
+//Fora do IPLeiria servidor: 0.pool.ntp.org
+char NTP_SERVER[] = "ntp.ipleiria.pt";
+NTPClient clienteNTP(clienteUDP, NTP_SERVER, 3600);
+
+void setup() {
+
+
+  //Conexão à labs
+  Serial.begin(115200);
+  while (!Serial);
+  WiFi.begin(SSID, PASS_WIFI);
+  while(WiFi.status() != WL_CONNECTED){
+    Serial.println(".");
+    delay(500);
+  }
+  Serial.println((IPAddress)WiFi.localIP());
+  Serial.println((IPAddress)WiFi.subnetMask());
+  Serial.println((IPAddress)WiFi.gatewayIP());
+  Serial.println(WiFi.RSSI());
+  
+  //Inicialização do NTP 
+  clienteNTP.begin();
+  //Inicialização dos pinos do led
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green, OUTPUT);
+
+  //Inicializam com a led amarela ligadaS
+  digitalWrite(yellow, HIGH);
+  digitalWrite(red, LOW);
+  digitalWrite(green, LOW);
+}
+
+void loop() {
+  
+
+  if(estado == 1){      
+        yellow_on();
+
+      /*  ESPAÇO DESTINADO AO SENSOR HC-SR04
+        FUNÇÃO get_distancia
+      */
+        if(get_distancia < 30){
+          while(get_estado() == 1){
+            red_blink();
+          }
+        }
+    }
+  }  
+  if(estado == 0){
+    green_on();
+  }
+
+  //Declaração e atualização da data e hora
+  char datahora[20];
+  update_time(datahora);
+
+  String estado = "Desativado";
+  //Função que envia dados para a api
+  post2api("Alarme", estado, datahora);
+}
+
+void update_time(char *datahora){
+  clienteNTP.update();
+  unsigned long epochTime = clienteNTP.getEpochTime();
+  sprintf(datahora, "%02d-%02d-%02d %02d:%02d:%02d", year(epochTime), month(epochTime), day(epochTime), hour(epochTime), minute(epochTime), second(epochTime));
+}
+
+void post2api(String nome, String estado, String data){
+  //Definição de para onde enviar
+  String URLPath = "/ti/ti061/ProjetoTI/API/api.php"; 
+  //Definição dos dados a enviar e construção do body a enviar
+  String contentType = "application/x-www-form-urlencoded";
+  String body = "nome="+nome+"&estado="+estado+"&hora="+data;
+  //Envio por POST
+  clienteHTTP.post(URLPath, contentType, body);
+  //Confirmação de que foi enviado
+  Serial.print("Response status code: ");
+  Serial.println(clienteHTTP.responseStatusCode());
+  Serial.print("Response body: ");
+  Serial.println(clienteHTTP.responseBody());
+  delay(5000);
+}
+
+void blink_red(void){
+  digitalWrite(yellow, LOW);
+  digitalWrite(red, HIGH);
+  digitalWrite(green, LOW);
+  delay(500);
+  digitalWrite(red, LOW);
+  delay(500);
+}
+
+
+void green_on(void){
+  digitalWrite(yellow, LOW);
+  digitalWrite(red, LOW);
+  digitalWrite(green, HIGH); 
+}
+
+void yellow_on(void){
+  digitalWrite(yellow, HIGH);
+  digitalWrite(red, LOW);
+  digitalWrite(green, LOW); 
+}
+
+int get_estado(void){
+  clienteHTTP.get("ti/061/API/api.php?nome=Alarme");
+}
