@@ -10,6 +10,9 @@ int green = 14;
 int yellow = 13;
 int red = 12;
 
+//Declaração do pino do buzzer
+int buzzer = 6;
+
 //Definição dos dados WiFi
 char SSID[] = "labs";
 char PASS_WIFI[] = "1nv3nt@r2023_IPLEIRIA";
@@ -50,6 +53,9 @@ void setup() {
   pinMode(yellow, OUTPUT);
   pinMode(green, OUTPUT);
 
+  //Inicialização do pino do buzzer
+  pinMode(buzzer, OUTPUT);
+
   //Inicializam com a led amarela ligadaS
   digitalWrite(yellow, HIGH);
   digitalWrite(red, LOW);
@@ -58,21 +64,29 @@ void setup() {
 
 void loop() {
   
+  digitalWrite(buzzer, LOW);
   int estado = get_estado();
-  Serial.println(estado);
+
   if(estado == 0){
-    green_on();
+
   }
   if(estado == 1){      
-        yellow_on();
+      digitalWrite(yellow, HIGH);
+      digitalWrite(red, LOW);
+      digitalWrite(green, LOW);
 
       /*  ESPAÇO DESTINADO AO SENSOR HC-SR04
         FUNÇÃO get_distancia
       */
-        if(0){
+        if(1 == 1){
           while(estado == 1){
-            blink_red();
+            digitalWrite(green, LOW);
+            digitalWrite(yellow, LOW);
+            digitalWrite(red, HIGH);
+            delay(300);
+            digitalWrite(red, LOW);
             estado = get_estado();
+            digitalWrite(buzzer, HIGH);
           }
         }
   }  
@@ -83,7 +97,7 @@ void loop() {
 
   //Função que envia dados para a api
   String stringEstado;
-  if(estado){
+  if(estado == 1){
     stringEstado = "Ativo";
   }else if (estado == 0){
     stringEstado = "Desativado";
@@ -102,37 +116,16 @@ void post2api(String nome, String estado, String data){
   String URLPath = "/ti/ti061/ProjetoTI/API/api.php"; 
   //Definição dos dados a enviar e construção do body a enviar
   String contentType = "application/x-www-form-urlencoded";
-  String body = "nome="+nome+"&estado="+estado+"&hora="+data;
+  String body = "acao=atualizar&nome="+nome+"&estado="+estado+"&hora="+data;
   //Envio por POST
   clienteHTTP.post(URLPath, contentType, body);
   //Confirmação de que foi enviado
+  Serial.println("----Confirmação Post2API---------");
   Serial.print("Response status code: ");
   Serial.println(clienteHTTP.responseStatusCode());
   Serial.print("Response body: ");
   Serial.println(clienteHTTP.responseBody());
   delay(5000);
-}
-
-void blink_red(void){
-  digitalWrite(yellow, LOW);
-  digitalWrite(red, HIGH);
-  digitalWrite(green, LOW);
-  delay(500);
-  digitalWrite(red, LOW);
-  delay(500);
-}
-
-
-void green_on(void){
-  digitalWrite(yellow, LOW);
-  digitalWrite(red, LOW);
-  digitalWrite(green, HIGH); 
-}
-
-void yellow_on(void){
-  digitalWrite(yellow, HIGH);
-  digitalWrite(red, LOW);
-  digitalWrite(green, LOW); 
 }
 
 int get_estado(void) {
@@ -146,7 +139,7 @@ int get_estado(void) {
 
   //Se o pedido falhou, devolve -1 
   if (statusCode != 200) {
-    Serial.print("Erro ao obter estado: ");
+    Serial.print("ERRO ao obter estado: ");
     Serial.println(resposta);
     return -1;
   }
