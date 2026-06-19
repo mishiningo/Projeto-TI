@@ -52,7 +52,7 @@
 						
 					</div>
 					<div class="card-footer">
-						<b>Atualização:</a>
+						<b>Atualização:</b>
 					</div>
 				</div>
 			</div>
@@ -66,40 +66,11 @@
 						
 					</div>
 					<div class="card-footer">
-						<b>Atualização:</a>
+						<b>Atualização:</b>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
-				<div class="card">
-					<div class="card-header atuador myHomeStyle">
-						<b>Led Arduino:</b>
-					</div>
-					
-					<div class="card-body">
-						
-					</div>
-					<div class="card-footer">
-						<b>Atualização:</a>
-					</div>
-				</div>
-			</div>	
 		</div>
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="card">
-					<div class="card-header sensor myHomeStyle">
-						<b>Imagens</b>
-					</div>
-					<div class="card-body">
-						
-						
-					</div>
-					<div class="card-footer">
-						<b>Atualização:</a>
-					</div>
-				</div>
-			</div>
 	</div>
 
 

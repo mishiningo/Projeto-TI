@@ -33,7 +33,7 @@
 			</div>
 		</div>
 	</nav>
-
+  <h1 style="text-align: center; margin-top: 20px;">Histórico de Acessos</h1>
     <table class="bordered" style="width:25%; margin-top: 20px; margin-left: 7.5%;  margin-left: auto; margin-right: auto;">
         <tr class="myHomeStyle">
             <th style="border: 1px solid black;">Usuario:</th>
@@ -48,7 +48,7 @@
             <td style="border: 1px solid black;">2025-02-16 -- 14:45:00</td>
         </tr>
     </table>
-
+  <h1 style="text-align: center; margin-top: 20px;">Histórico de Imagens</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -35,7 +35,7 @@
 	</nav>
 
     <div class="container text-center">
-		<div class="row">
+		<div class="row justify-content-center" style="margin-top: 60px;">
 			<div class="col-sm-4">
 				<div class="card">
 					<div class="card-header myHomeStyle" >
