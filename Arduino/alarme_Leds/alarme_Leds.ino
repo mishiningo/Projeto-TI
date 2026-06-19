@@ -58,31 +58,37 @@ void setup() {
 
 void loop() {
   
-
+  int estado = get_estado();
+  Serial.println(estado);
+  if(estado == 0){
+    green_on();
+  }
   if(estado == 1){      
         yellow_on();
 
       /*  ESPAÇO DESTINADO AO SENSOR HC-SR04
         FUNÇÃO get_distancia
       */
-        if(get_distancia < 30){
-          while(get_estado() == 1){
-            red_blink();
+        if(0){
+          while(estado == 1){
+            blink_red();
+            estado = get_estado();
           }
         }
-    }
   }  
-  if(estado == 0){
-    green_on();
-  }
 
   //Declaração e atualização da data e hora
   char datahora[20];
   update_time(datahora);
 
-  String estado = "Desativado";
   //Função que envia dados para a api
-  post2api("Alarme", estado, datahora);
+  String stringEstado;
+  if(estado){
+    stringEstado = "Ativo";
+  }else if (estado == 0){
+    stringEstado = "Desativado";
+  }
+  post2api("Alarme", stringEstado, datahora);
 }
 
 void update_time(char *datahora){
@@ -129,6 +135,31 @@ void yellow_on(void){
   digitalWrite(green, LOW); 
 }
 
-int get_estado(void){
-  clienteHTTP.get("ti/061/API/api.php?nome=Alarme");
+int get_estado(void) {
+
+  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?acao=ler&nome=Alarme";
+
+  clienteHTTP.get(URLPath);
+
+  int statusCode = clienteHTTP.responseStatusCode();
+  String resposta = clienteHTTP.responseBody();
+
+  //Se o pedido falhou, devolve -1 
+  if (statusCode != 200) {
+    Serial.print("Erro ao obter estado: ");
+    Serial.println(resposta);
+    return -1;
+  }
+
+  //O formato da resposta é "estado;hora"
+  //indexOf detecta ";" e o utiliza como separador de strings, logo [0] em relação ao separador é o indice do estado
+  int separador = resposta.indexOf(';');
+  String estadoRecebido = resposta.substring(0, separador);
+
+  //Converte o texto recebido em 0 ou 1
+  if (estadoRecebido == "Ativo") {
+    return 1;
+  } else {
+    return 0;
+  }
 }
