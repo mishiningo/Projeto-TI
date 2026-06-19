@@ -33,6 +33,68 @@
 			</div>
 		</div>
 	</nav>
+	
+	<div class="container text-center">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header sensor myHomeStyle" >
+						<b>Temperatura</b>
+					</div>
+					
+					<div class="card-body">
+						
+					</div>
+					<div class="card-footer">
+						<b>Atualização:</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header sensor myHomeStyle">
+						<b>Humidade:</b>
+					</div>
+					
+					<div class="card-body">
+						
+					</div>
+					<div class="card-footer">
+						<b>Atualização:</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header atuador myHomeStyle">
+						<b>Led Arduino:</b>
+					</div>
+					
+					<div class="card-body">
+						
+					</div>
+					<div class="card-footer">
+						<b>Atualização:</a>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header sensor myHomeStyle">
+						<b>Imagens</b>
+					</div>
+					<div class="card-body">
+						
+						
+					</div>
+					<div class="card-footer">
+						<b>Atualização:</a>
+					</div>
+				</div>
+			</div>
+	</div>
 
 
 
