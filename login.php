@@ -2,30 +2,13 @@
 <?php
   session_start();
   
-  
-  $users = [
-        "Leo" => [
-            "password" => '$2y$12$pq1xvMVLijW3DInENog3x.f8WWHLdm/WsVDX/hVcufsMUvDHMsyIq', // 123 para todos os utilizadores
-            "nivel"    => "Morador"
-        ],
-        "Maria" => [
-            "password" => '$2y$12$pq1xvMVLijW3DInENog3x.f8WWHLdm/WsVDX/hVcufsMUvDHMsyIq',
-            "nivel"    => "Visitante"
-        ],
-        "Tomas" => [
-            "password" => '$2y$12$pq1xvMVLijW3DInENog3x.f8WWHLdm/WsVDX/hVcufsMUvDHMsyIq',
-            "nivel"    => "Seguranca"
-        ]
-    ];
-  
-  
-  
   if(isset($_POST['password']) and isset($_POST['username'])){
-      if (password_verify ($_POST['password'], $users[$_POST['username']]['password'])){
+    $pass_hash = file_get_contents("files/utilizadores/" . $_POST['username'] .".txt");
+    if (password_verify ($_POST['password'], $pass_hash)){
           echo "Credenciais corretas!";
           header("refresh:0;url=dashboard.php");
           $_SESSION["username"]=$_POST['username'];
-          $_SESSION["nivel"]=$users[$_POST['username']]['nivel'];
+          $_SESSION["nivel"]=file_get_contents("files/utilizadores/" . $_POST['username'] . "NVL" .".txt");
     }
     else{
         echo"Crendeciais inválidas!";
