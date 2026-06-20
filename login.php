@@ -2,20 +2,20 @@
   require_once 'auth.php';
   
   if(isset($_POST['password']) and isset($_POST['username'])){
-      $pass_hash = file_get_contents("files/utilizadores/hashs/" . $_POST['username'] .".txt");
+      $pass_hash = file_get_contents("API/files/utilizadores/hashs/" . $_POST['username'] .".txt");
       if (password_verify ($_POST['password'], $pass_hash)){
           echo "Credenciais corretas!";
           $_SESSION["username"]=$_POST['username'];
-          $_SESSION["nivel"]=file_get_contents("files/utilizadores/niveis/" . $_POST['username'] . "NVL" .".txt");
+          $_SESSION["nivel"]=file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . "NVL" .".txt");
           header("refresh:0;url=dashboard.php");
           }
           else{
-              echo"Crendeciais inválidas!";
+              $erro = "<div class=\"erro\"><h4>Crendeciais inválidas!</h4></div>";
               }
     }   
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt">
   <head>
     <meta charset="utf-8">
@@ -31,6 +31,7 @@
                 <a href="login.php">
                     <img src="imagens/logo.png" class ="rounded float-center logo">
                 </a>
+                <?php if (isset($erro)) {echo $erro;} ?>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Utilizador</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
