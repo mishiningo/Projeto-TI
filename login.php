@@ -1,20 +1,21 @@
-<!doctype html>
 <?php
-  session_start();
+  require_once 'auth.php';
   
   if(isset($_POST['password']) and isset($_POST['username'])){
-    $pass_hash = file_get_contents("files/utilizadores/" . $_POST['username'] .".txt");
-    if (password_verify ($_POST['password'], $pass_hash)){
+      $pass_hash = file_get_contents("files/utilizadores/hashs/" . $_POST['username'] .".txt");
+      if (password_verify ($_POST['password'], $pass_hash)){
           echo "Credenciais corretas!";
-          header("refresh:0;url=dashboard.php");
           $_SESSION["username"]=$_POST['username'];
-          $_SESSION["nivel"]=file_get_contents("files/utilizadores/" . $_POST['username'] . "NVL" .".txt");
-    }
-    else{
-        echo"Crendeciais inválidas!";
-    }
-  }   
+          $_SESSION["nivel"]=file_get_contents("files/utilizadores/niveis/" . $_POST['username'] . "NVL" .".txt");
+          header("refresh:0;url=dashboard.php");
+          }
+          else{
+              echo"Crendeciais inválidas!";
+              }
+    }   
 ?>
+
+<!doctype html>
 <html lang="pt">
   <head>
     <meta charset="utf-8">
@@ -28,7 +29,7 @@
         <div class="row w-100 justify-content-center">
             <form class="LoginForm myHomeStyle" method ="post">
                 <a href="login.php">
-                    <image src="imagens/logo.png" class ="rounded float-center logo">
+                    <img src="imagens/logo.png" class ="rounded float-center logo">
                 </a>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Utilizador</label>
