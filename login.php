@@ -6,7 +6,7 @@
       if (password_verify ($_POST['password'], $pass_hash)){
           echo "Credenciais corretas!";
           $_SESSION["username"]=$_POST['username'];
-          $_SESSION["nivel"]=file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . "NVL" .".txt");
+          $_SESSION["nivel"]=file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . ".txt");
           header("refresh:0;url=dashboard.php");
           }
           else{
@@ -33,12 +33,12 @@
                 </a>
                 <?php if (isset($erro)) {echo $erro;} ?>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Utilizador</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
+                    <label for="inputUsername" class="form-label">Utilizador</label>
+                    <input type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Palavra-passe</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Sua palavra-passe" name="password" required>
+                    <label for="inputPassword" class="form-label">Palavra-passe</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Sua palavra-passe" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-myhome">Enviar</button>
             </form>
