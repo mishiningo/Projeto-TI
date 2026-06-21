@@ -90,3 +90,50 @@ body {
     border: 2px solid #00A8A8;
     border-radius: 10px;
 }
+
+/* Perceber o que o claude fez para a navbar */
+
+.navbar.turquesa {
+    background-color: #00A8A8;
+}
+
+.navbar.turquesa .nav-link {
+    color: #F4F3EF;
+    border-radius: 6px;
+    padding: 0.5rem 0.9rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar.turquesa .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #F4F3EF;
+}
+
+.navbar.turquesa .nav-item.active .nav-link {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #F4F3EF;
+    font-weight: 600;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #F4F3EF;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    padding: 0.45rem 1.2rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #F4F3EF;
+}
+
+.btn-logout:active, 
+.btn-logout:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: #F4F3EF;
+    box-shadow: none;
+}

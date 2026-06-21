@@ -1,6 +1,9 @@
-<!-- Verificar se o utilizador possui as devidas permissões para aceder a página - > TODO
+<!-- 
 Mensagem de criação bem sucedida -> TODO
 -->
+<?php 
+     require_once 'auth.php';
+?>
 <!DOCTYPE html>
 <html lang="pt">
   <head>
@@ -11,7 +14,39 @@ Mensagem de criação bem sucedida -> TODO
     <link rel="stylesheet" href="estiloLogin.css">
   </head>
   <body>
-    <!-- Criação da navbar -> TODO -->
+    <?php
+    if (!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] !== 'admin') {
+        echo "<div class=\"erro\"><h4>Acesso negado!</h4></div>";
+        return;
+    }
+    ?>
+    <!-- Navbar feita pelo claude -> analisar depois -->
+   <nav class="navbar navbar-expand-sm turquesa px-4">
+    <span class="navbar-brand text-white fw-bold">My Home Stats</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a href="dashboard.php" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Imagens</a>
+            </li>
+            <li class="nav-item active">
+                <a href="perfis.php" class="nav-link active">Perfis</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Histórico</a>
+            </li>
+        </ul>
+        <a href="logout.php">
+            <button type="button" class="btn btn-logout">Logout</button>
+        </a>
+    </div>
+    </nav>
+    <!-- FIM DA NAV  -->
       <div class="container-sm">
         <div class ="myHomeStyle d-flex justify-content-center mt-3">
             <h2>Gestor de Perfis</h2>
