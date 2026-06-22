@@ -7,8 +7,8 @@
     	die("Acesso Restrito");
   }
 
-	$estado = file_get_contents("API/files/Alarme/estado.txt");
-	$hora = file_get_contents("API/files/Alarme/hora.txt");
+	$estado = file_get_contents("API/files/alarme/estado.txt");
+	$hora = file_get_contents("API/files/alarme/hora.txt");
 ?>
 <head>
     <meta charset="utf-8">
