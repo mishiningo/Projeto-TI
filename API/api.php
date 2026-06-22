@@ -11,12 +11,17 @@
         $nome = $dados['nome'];
         $estado = $dados['estado'];
         $hora   = $dados['hora'];
+        if(!isset($_POST['origem'])){
+            $origem = "Arduino";
+        }else{
+            $origem = "Dashboard";
+        }
 
         //file_put_contents devolve false em caso de falha
         $ret_escrita = file_put_contents("files/$nome/estado.txt", $estado) !== false;
         $ret_escrita = $ret_escrita && file_put_contents("files/$nome/nome.txt", $nome) !== false;
         $ret_escrita = $ret_escrita && file_put_contents("files/$nome/hora.txt", $hora) !== false;
-        $ret_escrita = $ret_escrita && file_put_contents("files/$nome/log.txt", "$hora;$estado" . PHP_EOL . PHP_EOL, FILE_APPEND) !== false;
+        $ret_escrita = $ret_escrita && file_put_contents("files/$nome/log.txt", "$hora;$estado;$origem" . PHP_EOL . PHP_EOL, FILE_APPEND) !== false;
         if (!$ret_escrita) {
             http_response_code(500);
             echo "Erro ao escrever nos ficheiros da API";
