@@ -20,6 +20,7 @@
 
     //Cria a hash e a armazena no devido ficheiro. Tambem cria um ficheiro para o nivel de aceeso
     $pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    file_put_contents("files/utilizadores/hashs/" . $_POST['username'] .".txt", $pass_hash);
-    file_put_contents("files/utilizadores/niveis/" . $_POST['username'] . "NVL" .".txt", $_POST['nivel']);
+    file_put_contents("files/utilizadores/hashs/" . $_POST['username'] . ".txt", $pass_hash);
+    file_put_contents("files/utilizadores/niveis/" . $_POST['username'] . ".txt", $_POST['nivel']);
+    header("refresh:0;url=../perfis.php");
 ?>
