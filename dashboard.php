@@ -58,7 +58,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				<div class="card text-center">
+				<div class="card h-100 text-center">
 					<div class="card-header">
 						Estado do alarme: <b>
 						<?php 
@@ -67,11 +67,11 @@
 					</div>
 					<div class="card-body">
 						<?php if($estado == "Ativo"){
-                            echo "<img src=\"imagens/AlarmeON.png\" class='imgAlarme'>";
+                            echo "<img src=\"imagens/AlarmeON.png\" class='imgAlarme mt-5'>";
                         } else if ($estado == "Desativado") {
-                            echo "<img src=\"imagens/AlarmeOFF.png\" class='imgAlarme'>";
+                            echo "<img src=\"imagens/AlarmeOFF.png\" class='imgAlarme mt-5'>";
                         } else {
-							echo "<img src=\"imagens/AlarmeHIT.png\" class='imgAlarme'>";
+							echo "<img src=\"imagens/AlarmeHIT.png\" class='imgAlarme mt-5'>";
 						}?>
 					</div>
 					<div class="card-footer">
@@ -83,20 +83,44 @@
 					</div>
 				</div>
 			</div>
+			<br>
+			<br>
 			<div class="col-sm-6">
-				<div class="card">
+				<div class="card h-100 text-center">
 					<div class="card-header">	
 						<b>Controlo do alarme</b>
 					</div>
 					<div class="card-body">
-						<table>
-							<tr>
-								<td> Botão para desativar por 30s </td>
-								<td> Botão para desativar por 30m</td>
-								<td> Botão para desativar indefinidamente</td>								
-							</tr>
-						</table>
+						<form method="POST"  action="API/api.php">
+							<table>
+								<input type="hidden" name="origem" value="dashboard">
+								<input type="hidden" name="nome" value="Alarme">
+   								<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
+								<tr>
+									<?php 
+										if($estado == "Ativo"){
+										echo "
+											<td>
+												<button type=\"submit\" name=\"estado\" value=\"Desativado\" class=\"btn-imagem\">
+													<img src=\"imagens/off.png\" class=\"imgAlarme\" title=\"Clique para desativar\">
+												</button>
+											</td>";						
+										} else {
+											echo "
+											<td>
+												<button type=\"submit\" name=\"estado\" value=\"Ativo\" class=\"btn-imagem\">
+													<img src=\"imagens/on.png\" class=\"imgAlarme\" title=\"Clique para ativar\">
+												</button>
+											</td>";
+										}
+										?>
+								</tr>
+							</table>
+						</form>
 					</div>
+					<div class="card-footer">
+						Clique para alterar o estado do alarme
+					<div>
 				</div>
 			</div>
 		</div>

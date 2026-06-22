@@ -27,21 +27,21 @@
   <body>
     <div class="container-fluid d-flex text-center align-items-center min-vh-100">
         <div class="row w-100 justify-content-center">
-            <form class="LoginForm myHomeStyle" method ="post">
-                <a href="login.php">
-                    <img src="imagens/logo.png" class ="rounded float-center logo">
-                </a>
-                <?php if (isset($erro)) {echo $erro;} ?>
-                <div class="mb-3">
-                    <label for="inputUsername" class="form-label">Utilizador</label>
-                    <input type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Palavra-passe</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Sua palavra-passe" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-myhome">Enviar</button>
-            </form>
+                <form class="LoginForm myHomeStyle" method ="post">
+                    <a href="login.php">
+                        <img src="imagens/logo.png" class ="rounded float-center logo">
+                    </a>
+                    <?php if (isset($erro)) {echo $erro;} ?>
+                    <div class="mb-3">
+                        <label for="inputUsername" class="form-label">Utilizador</label>
+                        <input type="text" class="form-control" id="inputUsername" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Palavra-passe</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Sua palavra-passe" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-myhome">Enviar</button>
+                </form>  
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

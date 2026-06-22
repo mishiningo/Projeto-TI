@@ -56,4 +56,8 @@ function enviarAPI($get): void{
         http_response_code(405);
         echo "Método não permitido";
     }
+
+    if(isset($_POST['origem']) && $_POST['origem'] === "dashboard"){
+        header("Location: ../dashboard.php");
+    }
 ?>
