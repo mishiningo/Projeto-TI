@@ -93,23 +93,23 @@ body {
 
 /* Perceber o que o claude fez para a navbar */
 
-.navbar.turquesa {
+.navbar {
     background-color: #00A8A8;
 }
 
-.navbar.turquesa .nav-link {
+.navbar .nav-link {
     color: #F4F3EF;
     border-radius: 6px;
     padding: 0.5rem 0.9rem;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.navbar.turquesa .nav-link:hover {
+.navbar .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.15);
     color: #F4F3EF;
 }
 
-.navbar.turquesa .nav-item.active .nav-link {
+.navbar .nav-item.active .nav-link {
     background-color: rgba(255, 255, 255, 0.25);
     color: #F4F3EF;
     font-weight: 600;
