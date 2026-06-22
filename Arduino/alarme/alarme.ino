@@ -6,12 +6,16 @@
 #include <NTPClient.h>
 
 //Declaração dos pinos dos Leds
-int green = 14;
-int yellow = 13;
-int red = 12;
+const int green = 14;
+const int yellow = 13;
+const int red = 12;
 
 //Declaração do pino do buzzer
-int buzzer = 6;
+const int buzzer = 6;
+
+//Declaração dos pinos do HC-Sr04 (Emissão e receção)
+const int trigPin = 9;
+const int echoPin = 10;
 
 //Definição dos dados WiFi
 char SSID[] = "labs";
@@ -60,6 +64,10 @@ void setup() {
   digitalWrite(yellow, HIGH);
   digitalWrite(red, LOW);
   digitalWrite(green, LOW);
+
+  //HC-Sr04
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
 }
 
 void loop() {
@@ -67,24 +75,22 @@ void loop() {
   digitalWrite(buzzer, LOW);
   int estado = get_estado();
 
-  //Alarme desativado -> Led verde ligada
+  //Alarme desativado -> Led amarela ligada
   if(estado == 0){
-    digitalWrite(green, HIGH);
-    digitalWrite(yellow, LOW);
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
-  }else if(estado == 1){ //Alarme ligado -> Led vemelha    
+  }else if(estado == 1){ //Alarme ligado -> Led verde    
       digitalWrite(yellow, LOW);
-      digitalWrite(red, HIGH);
-      digitalWrite(green, LOW);
+      digitalWrite(red, LOW);
+      digitalWrite(green, HIGH);
 
-      /*  ESPAÇO DESTINADO AO SENSOR HC-SR04
-        FUNÇÃO get_distancia
-      */
+      float distancia = get_distancia();
 
       //Alarme acionado
-      if(1 == 1){
+      if(distancia < 130){
         //Enquanto o alarme não for desativado ficará sempre em estado acionado.
-        while(estado == 1 || estado == -1){
+        while(estado != 0){
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
           digitalWrite(green, LOW);
           digitalWrite(yellow, LOW);
@@ -94,7 +100,12 @@ void loop() {
           digitalWrite(red, LOW);
           estado = get_estado();
           digitalWrite(buzzer, LOW);
+
+          char datahora[20];
+          update_time(datahora);
+          post2api("alarme", estado2string(estado), datahora);
         }
+        return;
       }
   }else{ // Caso de erro -> Led amarela ligada 
     digitalWrite(green, LOW);
@@ -107,15 +118,7 @@ void loop() {
   update_time(datahora);
 
   //Função que envia dados para a api
-  String stringEstado;
-  if(estado == 1){
-    stringEstado = "Ativo";
-  }else if (estado == 0){
-    stringEstado = "Desativado";
-  }else{
-    stringEstado = "N/A";
-  }
-  post2api("Alarme", stringEstado, datahora);
+  post2api("alarme", estado2string(estado), datahora);
 }
 
 void update_time(char *datahora){
@@ -168,4 +171,41 @@ int get_estado(void) {
   } else {
     return 0;
   }
+}
+
+float get_distancia(void){
+  
+  float duracao, distancia;
+  
+  //Realiza a emissão
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  //Realiza a receção
+  duracao = pulseIn(echoPin, HIGH);
+  
+  //Calculo da distancia
+  distancia = (duracao*.0343)/2;
+  
+  //Prints para debug
+  Serial.print("Distancia: ");
+  Serial.println(distancia);
+  delay(100);
+
+  return distancia;
+}
+
+String estado2string(int estado){
+  String stringEstado;
+  if(estado == 1){
+    stringEstado = "Ativo";
+  }else if (estado == 0){
+    stringEstado = "Desativado";
+  }else{
+    stringEstado = "N/A";
+  }
+  return stringEstado;
 }
