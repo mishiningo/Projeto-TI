@@ -94,11 +94,11 @@
 						<form method="POST"  action="API/api.php">
 							<table>
 								<input type="hidden" name="origem" value="dashboard">
-								<input type="hidden" name="nome" value="Alarme">
+								<input type="hidden" name="nome" value="alarme">
    								<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
 								<tr>
 									<?php 
-										if($estado == "Ativo"){
+										if($estado != "Desativado"){
 										echo "
 											<td>
 												<button type=\"submit\" name=\"estado\" value=\"Desativado\" class=\"btn-imagem\">

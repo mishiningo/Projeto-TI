@@ -65,6 +65,9 @@ void setup() {
   digitalWrite(red, LOW);
   digitalWrite(green, LOW);
 
+  //Inicializa Buzzer desligado
+  digitalWrite(buzzer, LOW);
+
   //HC-Sr04
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -72,8 +75,13 @@ void setup() {
 
 void loop() {
   
-  digitalWrite(buzzer, LOW);
+  //digitalWrite(buzzer, HIGH);
   int estado = get_estado();
+  
+  digitalWrite(buzzer, LOW);
+
+  Serial.print("O estado é: ");
+  Serial.println(estado);
 
   //Alarme desativado -> Led amarela ligada
   if(estado == 0){
@@ -96,14 +104,13 @@ void loop() {
           digitalWrite(yellow, LOW);
           digitalWrite(red, HIGH);
           digitalWrite(buzzer, HIGH);
-          delay(300);
-          digitalWrite(red, LOW);
+          
           estado = get_estado();
-          digitalWrite(buzzer, LOW);
-
+          String hit = "Acionado";
           char datahora[20];
           update_time(datahora);
-          post2api("alarme", estado2string(estado), datahora);
+          post2api("alarme", hit, datahora);
+          delay(300);
         }
         return;
       }
@@ -146,7 +153,7 @@ void post2api(String nome, String estado, String data){
 
 int get_estado(void) {
 
-  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?nome=Alarme";
+  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?nome=alarme";
 
   clienteHTTP.get(URLPath);
 
@@ -166,7 +173,7 @@ int get_estado(void) {
   String estadoRecebido = resposta.substring(0, separador);
 
   //Converte o texto recebido em 0 ou 1
-  if (estadoRecebido == "Ativo") {
+  if (estadoRecebido != "Desativado") {
     return 1;
   } else {
     return 0;
