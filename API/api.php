@@ -38,7 +38,7 @@ function enviarAPI($get): void{
     $nome = $get['nome'];
     $origem = $get['origem'];
 
-    if($origem == "Arduino" || $origem == "Dashboard"){
+    if($origem == "Arduino" || $origem == "Dashboard" || $origem == "Raspberry"){
         $estado = file_get_contents("files/$nome/estado.txt");
         $hora   = file_get_contents("files/$nome/hora.txt");
         if ($estado === false || $hora === false) {

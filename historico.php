@@ -25,9 +25,6 @@
             <li class="nav-item">
                 <a href="dashboard.php" class="nav-link">Home</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Imagens</a>
-            </li>
 			<?php
 				if($_SESSION['nivel'] == "admin"){
 					echo "<li class=\"nav-item\">

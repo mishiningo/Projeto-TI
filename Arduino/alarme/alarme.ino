@@ -78,30 +78,30 @@ void loop() {
   //Buzzer desligado ao fim de cada iteração
   noTone(buzzer);
 
-  int estado;
+  int estado = get_estado();
+
+  char datahora[20];
   // Chama-se a função get_estado multiplas vezes para maior precisão
   // Caso o estado do alarme seja alterado a meio da iteração do loop tem-se uma mudança mais
   // imediata
 
   //Alarme desativado -> Led amarela ligada
-  if(get_estado() == 0){
+  if(estado == 0){
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
-    estado = 0;
-  }else if(get_estado() == 1){ //Alarme ligado -> Led verde    
+  }else if(estado == 1){ //Alarme ligado -> Led verde    
       digitalWrite(yellow, LOW);
       digitalWrite(red, LOW);
       digitalWrite(green, HIGH);
 
       float distancia = get_distancia();
-
       //Alarme acionado
       if(distancia < 30){
           //Primeira coisa a ser feita: atualizar dashboard
-          char datahora[20];
           update_time(datahora);
-          post2api("alarme", estado2string(3), datahora, "Arduino");
+          estado = 3;
+          post2api("alarme", estado2string(estado), datahora, "Arduino");
         //Enquanto o alarme não for desativado ficará sempre em estado acionado.
         while(estado != 0 && estado != 2){
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
@@ -115,18 +115,22 @@ void loop() {
         }
         return;
       }
-  }else if(get_estado() == 2){
+  }else if(estado == 2){
     //Desliga-se o alarme somente por 30s
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
-    //25s pois considera-se o intervalo até concluir o loop todo 
-    for(int i = 0; i < 15; i++){
+    
+    //milis devolve o intervalo de tempo desde que a placa foi ligada
+    //UL é um sufixo para unsigned long int 
+    unsigned long inicio = millis();
+    // Ajuste para 25s pois tem-se em conta o tempo de comunicação + iteração
+    while (millis() - inicio < 25000UL){
       //Desativado por 30s -> luzes amarelas a piscar
       digitalWrite(green, LOW);
       digitalWrite(yellow, LOW);
       digitalWrite(red, LOW);
-      delay(1000); //--> delay de 1s executado 15 vezes + tempo de operações do sistema ~~ 30s
+      delay(500);
       digitalWrite(green, LOW);
       digitalWrite(yellow, HIGH);
       digitalWrite(red, LOW);
@@ -142,6 +146,8 @@ void loop() {
       //Ao fim dos 30s o alarme tem de voltar a estar ativo
       //Caso após a iteração ainda esteja como "Desativado30", ele volta à ativo
       estado = 1;
+      update_time(datahora);
+      post2api("alarme", estado2string(estado), datahora, "Arduino");
     }
   }else{ 
     // Caso de erro -> Led amarela ligada 
@@ -150,12 +156,6 @@ void loop() {
     digitalWrite(red, LOW);
   }  
   
-  //Declaração e atualização da data e hora
-  char datahora[20];
-  update_time(datahora);
-
-  //Função que envia dados para a api
-  post2api("alarme", estado2string(estado), datahora, "Arduino");
 }
 
 void update_time(char *datahora){
@@ -178,7 +178,6 @@ void post2api(String nome, String estado, String data, String origem){
   Serial.println(clienteHTTP.responseStatusCode());
   Serial.print("Response body: ");
   Serial.println(clienteHTTP.responseBody());
-  delay(500);
 }
 
 int get_estado(void) {
@@ -234,7 +233,6 @@ float get_distancia(void){
   //Prints para debug
   Serial.print("Distancia: ");
   Serial.println(distancia);
-  delay(100);
 
   return distancia;
 }
