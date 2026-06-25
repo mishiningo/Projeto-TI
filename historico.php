@@ -13,6 +13,8 @@
     <title>MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <!-- Bilblioteca de gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm turquesa px-4">
@@ -43,11 +45,24 @@
     </nav>
 	<div class="container-sm">
         <br>
-        <br>
-        <div class = "row">
+        <div class = "row mb-4">
+            <div class="col-md-12 mb-4">
+                <div class ="myHomeStyle d-flex justify-content-center">
+                    <div class="welcome rounded-border pt-2 text-center">
+                        <h2>Histórico</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
             <div class="col-md-12">
-                <h2>Histórico</h2>
-                <br>
+                <h2>Estado do Alarme</h2>
+                <div style="position: relative; height: 220px;">
+                    <!-- Secção para gráfico -->
+                    <canvas id="grafico-alarme"></canvas>
+                </div>
+            </div>
+        </div>
                 <table class="table rounded-table">
                     <thead>
                         <tr>
@@ -76,10 +91,8 @@
 				</div>
 			</div>
 		
-
-        
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script src="async_historico.js"></script>
+    <script src="historico.js"></script>
 </html>
