@@ -99,26 +99,57 @@ void loop() {
       if(distancia < 130){
         //Enquanto o alarme não for desativado ficará sempre em estado acionado.
         while(estado != 0){
+          //Primeira coisa a ser feita: atualizar dashboard
+          char datahora[20];
+          update_time(datahora);
+          post2api("alarme", estado2string(3), datahora);
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
           digitalWrite(green, LOW);
           digitalWrite(yellow, LOW);
           digitalWrite(red, HIGH);
           digitalWrite(buzzer, HIGH);
-          
+          //Chama-se o estado para averiguar se o alarme não foi desativado
           estado = get_estado();
-          String hit = "Acionado";
-          char datahora[20];
-          update_time(datahora);
-          post2api("alarme", hit, datahora);
           delay(300);
         }
         return;
       }
-  }else{ // Caso de erro -> Led amarela ligada 
+  }else if(estado == 2){
+    //Desliga-se o alarme somente por 30s
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, HIGH);
+    digitalWrite(red, LOW);
+    //25s pois considera-se o intervalo até concluir o loop todo 
+    for(int i = 0; i < 30; i++){
+      //Desativado por 30s -> luzes amarelas a piscar
+      digitalWrite(green, LOW);
+      digitalWrite(yellow, LOW);
+      digitalWrite(red, LOW);
+      delay(1000); //--> delay de 1s executado 30 vezes = 30s
+      digitalWrite(green, LOW);
+      digitalWrite(yellow, HIGH);
+      digitalWrite(red, LOW);
+      
+      //Verificação do estado do alarme a cada segundo
+      //O mesmo pode ter sido ligado novamente durante estes 30s
+      estado = get_estado();
+      if(estado != 2){
+        break;
+      }
+    }
+    if(estado == 2){
+      //Ao fim dos 30s o alarme tem de voltar a estar ativo
+      //Caso após a iteração ainda esteja como "Desativado30", ele volta à ativo
+      estado = 1;
+    }
+  }else{ 
+    // Caso de erro -> Led amarela ligada 
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
   }  
+  
+  
 
   //Declaração e atualização da data e hora
   char datahora[20];
@@ -148,7 +179,7 @@ void post2api(String nome, String estado, String data){
   Serial.println(clienteHTTP.responseStatusCode());
   Serial.print("Response body: ");
   Serial.println(clienteHTTP.responseBody());
-  delay(5000);
+  delay(500);
 }
 
 int get_estado(void) {
@@ -172,11 +203,15 @@ int get_estado(void) {
   int separador = resposta.indexOf(';');
   String estadoRecebido = resposta.substring(0, separador);
 
-  //Converte o texto recebido em 0 ou 1
-  if (estadoRecebido != "Desativado") {
-    return 1;
-  } else {
+  //Converte o texto recebido em inteiros para gestão facilitada
+  if (estadoRecebido == "Desativado") {
     return 0;
+  } else if (estadoRecebido == "Desativado30"){
+    return 2;
+  } else if (estadoRecebido == "Acionado"){
+    return 3;
+  } else {
+    return 1;
   }
 }
 
@@ -211,8 +246,11 @@ String estado2string(int estado){
     stringEstado = "Ativo";
   }else if (estado == 0){
     stringEstado = "Desativado";
+  }else if (estado == 2){
+    stringEstado = "Desativado por 30s";
   }else{
-    stringEstado = "N/A";
+    stringEstado = "Acionado";
   }
+
   return stringEstado;
 }
