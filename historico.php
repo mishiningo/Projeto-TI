@@ -61,6 +61,20 @@
                     </tbody>
             </div>
         </div>
+
+        <div class="container text-center">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header sensor">
+						<b>Data e Hora: ...</b>
+					</div>
+					
+					<div class="card-body">
+						<b><img src="imagem.png"></b>
+					</div>
+				</div>
+			</div>
 		
 
         
