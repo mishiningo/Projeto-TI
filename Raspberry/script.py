@@ -43,30 +43,43 @@ ledAmarelo.on()
 ledVerde.off()
 ledVermelho.off()
 while True:
-    input_value = gpio.input(27)
-    
-    if input_value == True:
-        print('The button has been pressed...')
-        switchEstado()
-        while input_value == True:
-            input_value = gpio.input(27)
-    estado = getEstado()
-    print(estado)
-    if estado=='Desativado':
-        ledAmarelo.on()
-        ledVerde.off()
-        ledVermelho.off()
-    elif estado=='Acionado':
-        ledVermelho.on()
-        ledAmarelo.off()
-        ledVerde.off()
-    elif estado=='Ativo':
-        ledVerde.on()
-        ledVermelho.off()
-        ledAmarelo.off()
-    elif estado=='Desativado30':
-        ledVerde.off()
-        ledVermelho.off()
-        ledAmarelo.blink()
-    sleep(2)
-			
+	try:
+		
+		input_value = gpio.input(27)
+		
+		if input_value == True:
+			print('The button has been pressed...')
+			switchEstado()
+			while input_value == True:
+				input_value = gpio.input(27)
+		estado = getEstado()
+		print(estado)
+		if estado=='Desativado':
+			ledAmarelo.on()
+			ledVerde.off()
+			ledVermelho.off()
+		elif estado=='Acionado':
+			ledVermelho.on()
+			ledAmarelo.off()
+			ledVerde.off()
+		elif estado=='Ativo':
+			ledVerde.on()
+			ledVermelho.off()
+			ledAmarelo.off()
+		elif estado=='Desativado30':
+			ledVerde.off()
+			ledVermelho.off()
+			ledAmarelo.blink()
+		sleep(2)
+	except KeyboardInterrupt:
+		print('\n O script foi interrompido pelo Utilizador.')
+		ledVerde.off()
+		ledVermelho.off()
+		ledAmarelo.off()
+		break
+	except Exception as e:
+		print('Erro inesperado:', e)
+		ledVerde.off()
+		ledVermelho.off()
+		ledAmarelo.off()
+		break
