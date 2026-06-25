@@ -10,8 +10,8 @@ const int green = 14;
 const int yellow = 13;
 const int red = 12;
 
-//Declaração do pino do buzzer
-const int buzzer = 6;
+//Declaração do pino do buzzer - Pino 2 por conta de PWM
+const int buzzer = 2;
 
 //Declaração dos pinos do HC-Sr04 (Emissão e receção)
 const int trigPin = 9;
@@ -66,7 +66,7 @@ void setup() {
   digitalWrite(green, LOW);
 
   //Inicializa Buzzer desligado
-  digitalWrite(buzzer, LOW);
+  noTone(buzzer);
 
   //HC-Sr04
   pinMode(trigPin, OUTPUT);
@@ -75,20 +75,21 @@ void setup() {
 
 void loop() {
   
-  //digitalWrite(buzzer, HIGH);
-  int estado = get_estado();
-  
-  digitalWrite(buzzer, LOW);
+  //Buzzer desligado ao fim de cada iteração
+  noTone(buzzer);
 
-  Serial.print("O estado é: ");
-  Serial.println(estado);
+  int estado;
+  // Chama-se a função get_estado multiplas vezes para maior precisão
+  // Caso o estado do alarme seja alterado a meio da iteração do loop tem-se uma mudança mais
+  // imediata
 
   //Alarme desativado -> Led amarela ligada
-  if(estado == 0){
+  if(get_estado() == 0){
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
-  }else if(estado == 1){ //Alarme ligado -> Led verde    
+    estado = 0;
+  }else if(get_estado() == 1){ //Alarme ligado -> Led verde    
       digitalWrite(yellow, LOW);
       digitalWrite(red, LOW);
       digitalWrite(green, HIGH);
@@ -96,36 +97,36 @@ void loop() {
       float distancia = get_distancia();
 
       //Alarme acionado
-      if(distancia < 130){
-        //Enquanto o alarme não for desativado ficará sempre em estado acionado.
-        while(estado != 0){
+      if(distancia < 30){
           //Primeira coisa a ser feita: atualizar dashboard
           char datahora[20];
           update_time(datahora);
           post2api("alarme", estado2string(3), datahora);
+        //Enquanto o alarme não for desativado ficará sempre em estado acionado.
+        while(estado != 0 && estado != 2){
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
           digitalWrite(green, LOW);
           digitalWrite(yellow, LOW);
           digitalWrite(red, HIGH);
-          digitalWrite(buzzer, HIGH);
+          tone(buzzer, 2500);
           //Chama-se o estado para averiguar se o alarme não foi desativado
           estado = get_estado();
           delay(300);
         }
         return;
       }
-  }else if(estado == 2){
+  }else if(get_estado() == 2){
     //Desliga-se o alarme somente por 30s
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
     //25s pois considera-se o intervalo até concluir o loop todo 
-    for(int i = 0; i < 30; i++){
+    for(int i = 0; i < 15; i++){
       //Desativado por 30s -> luzes amarelas a piscar
       digitalWrite(green, LOW);
       digitalWrite(yellow, LOW);
       digitalWrite(red, LOW);
-      delay(1000); //--> delay de 1s executado 30 vezes = 30s
+      delay(1000); //--> delay de 1s executado 15 vezes + tempo de operações do sistema ~~ 30s
       digitalWrite(green, LOW);
       digitalWrite(yellow, HIGH);
       digitalWrite(red, LOW);
@@ -149,8 +150,6 @@ void loop() {
     digitalWrite(red, LOW);
   }  
   
-  
-
   //Declaração e atualização da data e hora
   char datahora[20];
   update_time(datahora);

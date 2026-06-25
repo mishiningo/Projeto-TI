@@ -64,11 +64,22 @@
                     src = "imagens/AlarmeHIT.png";
                     btns = `<tr>
 									<td>
-										<button type="submit" name="estado" value="Ativo" class="btn-imagem">
-											<img src="imagens/off.png" class="imgAlarme" title="Clique para ativar">
+										<button type="submit" name="estado" value="Desativado30" class="btn-imagem">
+											<img src="imagens/off30.png" class="imgAlarme" title="Clique para desativar por 30s">
 										</button>
 									</td>
 								</tr>`;
+                    if (nivelUtilizador !== "visitante"){
+                        //nivelUtilizador tem de ser passada dentro da dashboard
+                        // Admin e utilizadores normais veem os dois botões
+                        btns += `<tr>
+								    <td>
+                                        <button type="submit" name="estado" value="Desativado" class="btn-imagem">
+                                            <img src="imagens/off.png" class="imgAlarme" title="Clique para desativar">
+                                        </button>
+                                    </td>
+                                </tr>`;
+                    }
                     break; 
             }        
             
