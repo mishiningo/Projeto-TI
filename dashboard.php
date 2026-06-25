@@ -48,7 +48,7 @@
         </a>
     </div>
     </nav>
-	<div class="container">
+	<div class="container-sm">
 		<div class="row myHomeStyle text-center my-3 d-flex justify-content-center"> 
 			<div class="welcome rounded-border pt-2">
 			<?php 
@@ -57,18 +57,23 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-md-6 mb-4">
 				<div class="card h-100 text-center">
 					<div class="card-header">
 						Estado do alarme: <b>
 						<?php 
-							echo htmlspecialchars($estado);
+							if($estado != "Desativado30"){
+								echo htmlspecialchars($estado);
+							} else {
+								// Pequena conversão de Desativado30 para uma string bonita
+								echo "Desativado por 30s";
+							}
 						?> </b>
 					</div>
 					<div class="card-body">
 						<?php if($estado == "Ativo"){
                             echo "<img src=\"imagens/AlarmeON.png\" class='imgAlarme mt-5'>";
-                        } else if ($estado == "Desativado") {
+                        } else if ($estado == "Desativado" || $estado == "Desativado30") {
                             echo "<img src=\"imagens/AlarmeOFF.png\" class='imgAlarme mt-5'>";
                         } else {
 							echo "<img src=\"imagens/AlarmeHIT.png\" class='imgAlarme mt-5'>";
@@ -85,7 +90,7 @@
 			</div>
 			<br>
 			<br>
-			<div class="col-sm-6">
+			<div class="col-md-6 mb-4">
 				<div class="card h-100 text-center">
 					<div class="card-header">	
 						<b>Controlo do alarme</b>
@@ -96,22 +101,37 @@
 								<input type="hidden" name="origem" value="dashboard">
 								<input type="hidden" name="nome" value="alarme">
    								<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
-								<tr>
-									<?php 
+								   <?php 
 										if($estado != "Desativado"){
+											if($_SESSION['nivel'] != "visitante"){
+												// Visitantes só podem desativar o alarme por 30s
+												echo "
+													<tr>
+														<td>
+															<button type=\"submit\" name=\"estado\" value=\"Desativado\" class=\"btn-imagem\">
+																<img src=\"imagens/off.png\" class=\"imgAlarme\" title=\"Clique para desativar\">
+															</button>
+															<hr>
+														</td>
+														</tr>";
+											}
 										echo "
-											<td>
-												<button type=\"submit\" name=\"estado\" value=\"Desativado\" class=\"btn-imagem\">
-													<img src=\"imagens/off.png\" class=\"imgAlarme\" title=\"Clique para desativar\">
-												</button>
-											</td>";						
+											<tr>
+												<td>
+													<button type=\"submit\" name=\"estado\" value=\"Desativado30\" class=\"btn-imagem\">
+														<img src=\"imagens/off30.png\" class=\"imgAlarme\" title=\"Clique para desativar por 30 segundos\">
+													</button>
+												</td>
+											</tr>";						
 										} else {
 											echo "
-											<td>
-												<button type=\"submit\" name=\"estado\" value=\"Ativo\" class=\"btn-imagem\">
-													<img src=\"imagens/on.png\" class=\"imgAlarme\" title=\"Clique para ativar\">
-												</button>
-											</td>";
+											<tr>
+												<td>
+													<button type=\"submit\" name=\"estado\" value=\"Ativo\" class=\"btn-imagem\">
+														<img src=\"imagens/on.png\" class=\"imgAlarme\" title=\"Clique para ativar\">
+													</button>
+												</td>
+											</tr>";
 										}
 										?>
 								</tr>
