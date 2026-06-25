@@ -5,7 +5,7 @@ echo $_SERVER['REQUEST_METHOD'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['imagem'])){
         print_r($_FILES['imagem']);
-        if (move_uploaded_file($_FILES['imagem']['tmp_name'], 'webcam/' . $_FILES['imagem']['name'])) {
+        if (move_uploaded_file($_FILES['imagem']['tmp_name'], 'webcam/' . $_FILES['imagem']['name'] . '.jpg')) {
             echo ("Imagem recebida e salva com sucesso");
             http_response_code(200);
         }
