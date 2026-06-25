@@ -48,7 +48,9 @@ Mensagem de criação bem sucedida -> TODO
     <!-- FIM DA NAV  -->
       <div class="container-sm">
         <div class ="myHomeStyle d-flex justify-content-center mt-3">
-            <h2>Gestor de Perfis</h2>
+            <div class="welcome rounded-border pt-2 text-center">
+                <h2>Gestor de Perfis</h2>
+            </div>
         </div>
         <br>
         <br>
