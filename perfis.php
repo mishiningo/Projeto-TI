@@ -31,14 +31,13 @@ Mensagem de criação bem sucedida -> TODO
             <li class="nav-item">
                 <a href="dashboard.php" class="nav-link">Home</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Imagens</a>
-            </li>
             <li class="nav-item active">
+                <!-- Sem necessidade de verificação, pois a mesma já é feita ao aceder a pg -->
                 <a href="perfis.php" class="nav-link active">Perfis</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Histórico</a>
+                <!-- Não é necessário verificação, pois a mesma já é feita ao aceder a pg -->
+                <a href="historico.php" class="nav-link">Histórico</a>
             </li>
         </ul>
         <a href="logout.php">

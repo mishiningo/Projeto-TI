@@ -1,7 +1,7 @@
 //Função javascript para buscar dados de 5 em 5 tempo sem necessitar de refresh
     async function pedido() {
         try {
-            const resposta = await fetch(`API/api.php?nome=alarme`);
+            const resposta = await fetch(`API/api.php?nome=alarme&origem=Dashboard`);
 
             // Verificação da receção da resposta
             if (!resposta.ok) throw new Error("Erro na resposta do servidor");

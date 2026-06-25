@@ -101,7 +101,7 @@ void loop() {
           //Primeira coisa a ser feita: atualizar dashboard
           char datahora[20];
           update_time(datahora);
-          post2api("alarme", estado2string(3), datahora);
+          post2api("alarme", estado2string(3), datahora, "Arduino");
         //Enquanto o alarme não for desativado ficará sempre em estado acionado.
         while(estado != 0 && estado != 2){
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
@@ -155,7 +155,7 @@ void loop() {
   update_time(datahora);
 
   //Função que envia dados para a api
-  post2api("alarme", estado2string(estado), datahora);
+  post2api("alarme", estado2string(estado), datahora, "Arduino");
 }
 
 void update_time(char *datahora){
@@ -164,12 +164,12 @@ void update_time(char *datahora){
   sprintf(datahora, "%02d-%02d-%02d %02d:%02d:%02d", year(epochTime), month(epochTime), day(epochTime), hour(epochTime), minute(epochTime), second(epochTime));
 }
 
-void post2api(String nome, String estado, String data){
+void post2api(String nome, String estado, String data, String origem){
   //Definição de para onde enviar
   String URLPath = "/ti/ti061/ProjetoTI/API/api.php"; 
   //Definição dos dados a enviar e construção do body a enviar
   String contentType = "application/x-www-form-urlencoded";
-  String body = "nome="+nome+"&estado="+estado+"&hora="+data;
+  String body = "nome="+nome+"&estado="+estado+"&hora="+data+"&origem="+origem;
   //Envio por POST
   clienteHTTP.post(URLPath, contentType, body);
   //Confirmação de que foi enviado
@@ -183,7 +183,7 @@ void post2api(String nome, String estado, String data){
 
 int get_estado(void) {
 
-  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?nome=alarme";
+  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?nome=alarme&origem=Arduino";
 
   clienteHTTP.get(URLPath);
 

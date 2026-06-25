@@ -7,8 +7,6 @@
     	die("Acesso Restrito");
   }
 
-	$estado = file_get_contents("API/files/alarme/estado.txt");
-	$hora = file_get_contents("API/files/alarme/hora.txt");
 ?>
 <head>
     <meta charset="utf-8">
@@ -28,19 +26,19 @@
             <li class="nav-item active">
                 <a href="dashboard.php" class="nav-link active">Home</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Imagens</a>
-            </li>
+			<!-- Verifica se o utilizador tem acesso a funcionalidades de admin -->
 			<?php
 				if($_SESSION['nivel'] == "admin"){
 					echo "<li class=\"nav-item\">
 						<a href=\"perfis.php\" class=\"nav-link\">Perfis</a>
 					</li>";
 				} 
+				if($_SESSION['nivel'] != "visitante"){
+					echo "<li class=\"nav-item\">
+					<a href=\"historico.php\" class=\"nav-link\">Histórico</a>
+					</li>";
+				}
 			?>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Histórico</a>
-            </li>
         </ul>
         <a href="logout.php">
             <button type="button" class="btn btn-logout">Logout</button>
@@ -81,7 +79,7 @@
 					</div>
 					<div class="card-body">
 						<form method="POST"  action="API/api.php">
-							<input type="hidden" name="origem" value="dashboard">
+							<input type="hidden" name="origem" value="Dashboard">
 							<input type="hidden" name="nome" value="alarme">
 							<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
 							<table id="controlo-alarme">
@@ -94,11 +92,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
-
-
-        
+	</div>        
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
@@ -108,5 +102,5 @@
     const nivelUtilizador = "<?php echo $_SESSION['nivel']; ?>";
 	</script>
 	<!-- Chamada do script -->
-	<script src="async.js"></script>
+	<script src="async_dashboard.js"></script>
 </html>
