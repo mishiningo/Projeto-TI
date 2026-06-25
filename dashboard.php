@@ -16,7 +16,6 @@
     <title>MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <meta http-equiv="refresh" content="5">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm turquesa px-4">
@@ -60,31 +59,16 @@
 			<div class="col-md-6 mb-4">
 				<div class="card h-100 text-center">
 					<div class="card-header">
-						Estado do alarme: <b>
-						<?php 
-							if($estado != "Desativado30"){
-								echo htmlspecialchars($estado);
-							} else {
-								// Pequena conversão de Desativado30 para uma string bonita
-								echo "Desativado por 30s";
-							}
-						?> </b>
+						Estado do alarme: 
+						<b id="label-estado">
+						</b>
 					</div>
-					<div class="card-body">
-						<?php if($estado == "Ativo"){
-                            echo "<img src=\"imagens/AlarmeON.png\" class='imgAlarme mt-5'>";
-                        } else if ($estado == "Desativado" || $estado == "Desativado30") {
-                            echo "<img src=\"imagens/AlarmeOFF.png\" class='imgAlarme mt-5'>";
-                        } else {
-							echo "<img src=\"imagens/AlarmeHIT.png\" class='imgAlarme mt-5'>";
-						}?>
+					<div class="card-body" id="imagem-alarme">
 					</div>
 					<div class="card-footer">
 						Data e hora da última atualização: 
-						<b>
-						<?php 
-							echo htmlspecialchars($hora);
-						?> </b>
+						<b id="hora-alarme">
+						</b>
 					</div>
 				</div>
 			</div>
@@ -97,44 +81,10 @@
 					</div>
 					<div class="card-body">
 						<form method="POST"  action="API/api.php">
-							<table>
-								<input type="hidden" name="origem" value="dashboard">
-								<input type="hidden" name="nome" value="alarme">
-   								<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
-								   <?php 
-										if($estado != "Desativado"){
-											if($_SESSION['nivel'] != "visitante"){
-												// Visitantes só podem desativar o alarme por 30s
-												echo "
-													<tr>
-														<td>
-															<button type=\"submit\" name=\"estado\" value=\"Desativado\" class=\"btn-imagem\">
-																<img src=\"imagens/off.png\" class=\"imgAlarme\" title=\"Clique para desativar\">
-															</button>
-															<hr>
-														</td>
-														</tr>";
-											}
-										echo "
-											<tr>
-												<td>
-													<button type=\"submit\" name=\"estado\" value=\"Desativado30\" class=\"btn-imagem\">
-														<img src=\"imagens/off30.png\" class=\"imgAlarme\" title=\"Clique para desativar por 30 segundos\">
-													</button>
-												</td>
-											</tr>";						
-										} else {
-											echo "
-											<tr>
-												<td>
-													<button type=\"submit\" name=\"estado\" value=\"Ativo\" class=\"btn-imagem\">
-														<img src=\"imagens/on.png\" class=\"imgAlarme\" title=\"Clique para ativar\">
-													</button>
-												</td>
-											</tr>";
-										}
-										?>
-								</tr>
+							<input type="hidden" name="origem" value="dashboard">
+							<input type="hidden" name="nome" value="alarme">
+							<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
+							<table id="controlo-alarme">
 							</table>
 						</form>
 					</div>
@@ -152,4 +102,11 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+	<script>
+    // Valor do nivel enviado para js
+	// Aspas para ser interpretado como uma string
+    const nivelUtilizador = "<?php echo $_SESSION['nivel']; ?>";
+	</script>
+	<!-- Chamada do script -->
+	<script src="async.js"></script>
 </html>
