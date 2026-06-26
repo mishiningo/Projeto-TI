@@ -15,8 +15,12 @@
                 return;
     }
 
-    //Verificar se foi um nivel permitido 
-    // TODO
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $_POST['username'])) {
+        echo "Caracteres inválidos";
+        http_response_code(400);
+        return;
+    }
+
 
     //Cria a hash e a armazena no devido ficheiro. Tambem cria um ficheiro para o nivel de aceeso
     $pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);

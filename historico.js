@@ -76,7 +76,7 @@ const grafico = new Chart(ctx, {
 //Função javascript para buscar dados de 5 em 5 segundos sem necessitar de refresh
 async function pedido() {
     try {
-        const resposta = await fetch(`API/api.php?nome=alarme&origem=Historico`);
+        const resposta = await fetch(`API/api.php?origem=Historico`);
         
         // Verificação da receção da resposta
         if (!resposta.ok) throw new Error("Erro na resposta do servidor");

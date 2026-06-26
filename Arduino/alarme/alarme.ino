@@ -78,19 +78,16 @@ void loop() {
   //Buzzer desligado ao fim de cada iteração
   noTone(buzzer);
 
-  int estado = get_estado();
+  String estado = get_estado();
 
   char datahora[20];
-  // Chama-se a função get_estado multiplas vezes para maior precisão
-  // Caso o estado do alarme seja alterado a meio da iteração do loop tem-se uma mudança mais
-  // imediata
 
   //Alarme desativado -> Led amarela ligada
-  if(estado == 0){
+  if(estado == "Desativado"){
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(red, LOW);
-  }else if(estado == 1){ //Alarme ligado -> Led verde    
+  }else if(estado == "Ativo"){ //Alarme ligado -> Led verde    
       digitalWrite(yellow, LOW);
       digitalWrite(red, LOW);
       digitalWrite(green, HIGH);
@@ -100,10 +97,10 @@ void loop() {
       if(distancia < 30){
           //Primeira coisa a ser feita: atualizar dashboard
           update_time(datahora);
-          estado = 3;
-          post2api("alarme", estado2string(estado), datahora, "Arduino");
+          estado = "Acionado";
+          post2api(estado, datahora, "Arduino");
         //Enquanto o alarme não for desativado ficará sempre em estado acionado.
-        while(estado != 0 && estado != 2){
+        while(estado != "Desativado" && estado != "Desativado30"){
           //Alarme acionado -> Led vermelha a piscar e buzzer a tocar
           digitalWrite(green, LOW);
           digitalWrite(yellow, LOW);
@@ -115,7 +112,7 @@ void loop() {
         }
         return;
       }
-  }else if(estado == 2){
+  }else if(estado == "Desativado30"){
     //Desliga-se o alarme somente por 30s
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
@@ -138,16 +135,16 @@ void loop() {
       //Verificação do estado do alarme a cada segundo
       //O mesmo pode ter sido ligado novamente durante estes 30s
       estado = get_estado();
-      if(estado != 2){
+      if(estado != "Desativado30"){
         break;
       }
     }
-    if(estado == 2){
+    if(estado == "Desativado30"){
       //Ao fim dos 30s o alarme tem de voltar a estar ativo
       //Caso após a iteração ainda esteja como "Desativado30", ele volta à ativo
-      estado = 1;
+      estado = "Ativo";
       update_time(datahora);
-      post2api("alarme", estado2string(estado), datahora, "Arduino");
+      post2api(estado, datahora, "Arduino");
     }
   }else{ 
     // Caso de erro -> Led amarela ligada 
@@ -164,12 +161,12 @@ void update_time(char *datahora){
   sprintf(datahora, "%02d-%02d-%02d %02d:%02d:%02d", year(epochTime), month(epochTime), day(epochTime), hour(epochTime), minute(epochTime), second(epochTime));
 }
 
-void post2api(String nome, String estado, String data, String origem){
+void post2api(String estado, String data, String origem){
   //Definição de para onde enviar
   String URLPath = "/ti/ti061/ProjetoTI/API/api.php"; 
   //Definição dos dados a enviar e construção do body a enviar
   String contentType = "application/x-www-form-urlencoded";
-  String body = "nome="+nome+"&estado="+estado+"&hora="+data+"&origem="+origem;
+  String body = "estado="+estado+"&hora="+data+"&origem="+origem;
   //Envio por POST
   clienteHTTP.post(URLPath, contentType, body);
   //Confirmação de que foi enviado
@@ -180,9 +177,9 @@ void post2api(String nome, String estado, String data, String origem){
   Serial.println(clienteHTTP.responseBody());
 }
 
-int get_estado(void) {
+String get_estado(void) {
 
-  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?nome=alarme&origem=Arduino";
+  String URLPath = "/ti/ti061/ProjetoTI/API/api.php?origem=Arduino";
 
   clienteHTTP.get(URLPath);
 
@@ -193,7 +190,7 @@ int get_estado(void) {
   if (statusCode != 200) {
     Serial.print("ERRO ao obter estado: ");
     Serial.println(resposta);
-    return -1;
+    return "Erro";
   }
 
   //O formato da resposta é "estado;hora"
@@ -201,16 +198,8 @@ int get_estado(void) {
   int separador = resposta.indexOf(';');
   String estadoRecebido = resposta.substring(0, separador);
 
-  //Converte o texto recebido em inteiros para gestão facilitada
-  if (estadoRecebido == "Desativado") {
-    return 0;
-  } else if (estadoRecebido == "Desativado30"){
-    return 2;
-  } else if (estadoRecebido == "Acionado"){
-    return 3;
-  } else {
-    return 1;
-  }
+  return estadoRecebido;
+
 }
 
 float get_distancia(void){
@@ -235,19 +224,4 @@ float get_distancia(void){
   Serial.println(distancia);
 
   return distancia;
-}
-
-String estado2string(int estado){
-  String stringEstado;
-  if(estado == 1){
-    stringEstado = "Ativo";
-  }else if (estado == 0){
-    stringEstado = "Desativado";
-  }else if (estado == 2){
-    stringEstado = "Desativado por 30s";
-  }else{
-    stringEstado = "Acionado";
-  }
-
-  return stringEstado;
 }

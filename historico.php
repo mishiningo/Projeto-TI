@@ -2,7 +2,7 @@
 <html lang="pt">
 <?php 
 	require_once 'auth.php';
-	if(!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] != 'visitante'){
+	if(!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] == 'visitante'){
     	header("refresh:5;url=login.php");
     	die("Acesso Restrito");
   }
@@ -13,6 +13,10 @@
     <title>MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <!-- Imports da fonte (warning css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <!-- Bilblioteca de gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

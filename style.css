@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
 body {
     background-color: #F4F3EF;
     font-family: Outfit, sans-serif;           
@@ -90,8 +88,6 @@ body {
     border: 2px solid #00A8A8;
     border-radius: 10px;
 }
-
-/* Perceber o que o claude fez para a navbar */
 
 .navbar {
     background-color: #00A8A8;

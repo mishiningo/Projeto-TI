@@ -63,12 +63,12 @@ function appendLog(string $novaLinha): bool {
     //Declaração de função utilizada repetidas vezes
     function processarAPI(array $dados): void {
         //Verificação previa se $dados foram enviados corretamente
-        if (!isset($dados['nome'],$dados['estado'], $dados['hora'], $dados['origem'])) {
+        if (!isset($dados['estado'], $dados['hora'], $dados['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
             return;
             }
-        $nome = $dados['nome'];
+
         $estado = $dados['estado'];
         $hora   = $dados['hora'];
         // Origem só tem função para os logs
@@ -77,9 +77,8 @@ function appendLog(string $novaLinha): bool {
 
         //file_put_contents devolve false em caso de falha
         // Cifra cada valor antes de escrever .txt
-        $ret_escrita  = file_put_contents("files/$nome/estado.txt", cifrar($estado))  !== false;
-        $ret_escrita  = $ret_escrita && file_put_contents("files/$nome/nome.txt",  cifrar($nome))   !== false;
-        $ret_escrita  = $ret_escrita && file_put_contents("files/$nome/hora.txt",  cifrar($hora))   !== false;
+        $ret_escrita  = file_put_contents("files/alarme/estado.txt", cifrar($estado))  !== false;
+        $ret_escrita  = $ret_escrita && file_put_contents("files/alarme/hora.txt",  cifrar($hora))   !== false;
 
         $ret_escrita = $ret_escrita && appendLog($hora . ";" . $estado . ";" . $origem);
         if (!$ret_escrita) {
@@ -92,17 +91,16 @@ function appendLog(string $novaLinha): bool {
 }
 
 function enviarAPI($get): void{
-    if (!isset($get['nome'], $get['origem'])) {
+    if (!isset($get['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
             return;
             }
-    $nome = $get['nome'];
     $origem = $get['origem'];
 
     if($origem == "Arduino" || $origem == "Dashboard" || $origem == "Raspberry"){
-        $estado = decifrar(file_get_contents("files/$nome/estado.txt"));
-        $hora   = decifrar(file_get_contents("files/$nome/hora.txt"));
+        $estado = decifrar(file_get_contents("files/alarme/estado.txt"));
+        $hora   = decifrar(file_get_contents("files/alarme/hora.txt"));
         if ($estado === false || $hora === false) {
             http_response_code(500);
             echo "Erro ao ler os ficheiros da API";
@@ -111,7 +109,7 @@ function enviarAPI($get): void{
             http_response_code(200);
             echo "$estado; $hora";
     }else if($origem == "Historico"){
-        $log = file_get_contents("files/$nome/log.txt");
+        $log = file_get_contents("files/alarme/log.txt");
         if ($log === false) {
             http_response_code(500);
             echo "Erro ao ler os logs da API";

@@ -2,6 +2,7 @@
 <html lang="pt">
 <?php 
 	require_once 'auth.php';
+	header('Content-Type: text/html; charset=utf-8');
 	if(!isset($_SESSION['username'], $_SESSION['nivel'])){
     	header("refresh:5;url=login.php");
     	die("Acesso Restrito");
@@ -14,6 +15,10 @@
     <title>MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+	<!-- Imports da fonte (warning css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm turquesa px-4">
@@ -80,7 +85,6 @@
 					<div class="card-body gelo">
 						<form method="POST"  action="API/api.php">
 							<input type="hidden" name="origem" value="Dashboard">
-							<input type="hidden" name="nome" value="alarme">
 							<input type="hidden" name="hora" value="<?php echo date('Y-m-d H:i:s'); ?>">
 							<table id="controlo-alarme">
 							</table>
@@ -103,7 +107,7 @@
 					<div class="card-body" id="corpo-foto">
 						<!-- última foto -->
 					</div>
-					<div class ="card-footer" id=""></div>
+					<div class ="card-footer" id="rodape-foto"></div>
 				</div>
 			</div>
 		</div>	

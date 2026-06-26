@@ -67,9 +67,9 @@ def capturar_e_enviar():
 
 
 	# Função para realizar o post do botão para a API
-def post2API(nome, estado):
+def post2API(estado):
 	agora = datetime.datetime.now()
-	payload = {'nome': nome , 'estado': estado, 'hora': agora.strftime("%Y-%m-%d %H:%M:%S"), 'origem': 'Raspberry' }
+	payload = {'nome': 'alarme' , 'estado': estado, 'hora': agora.strftime("%Y-%m-%d %H:%M:%S"), 'origem': 'Raspberry' }
 	r = requests.post('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/api.php', data=payload)
 	if r.status_code == 200:
 		print("Pedido bem sucedido")
@@ -78,7 +78,7 @@ def post2API(nome, estado):
 	
 	#Função para receber o estado do alarme através do método GET
 def getEstado():
-	r = requests.get('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/api.php?nome=alarme&origem=Raspberry')
+	r = requests.get('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/api.php?origem=Raspberry')
 	if r.status_code != 200:
 		print(r.text)
 		return 
@@ -90,9 +90,9 @@ def getEstado():
 def switchEstado():
 	estado=getEstado()
 	if estado=='Desativado' or estado=='Desativado30':
-		post2API('alarme', 'Ativo')
+		post2API('Ativo')
 	elif estado=='Ativo' or estado=='Acionado':
-		post2API('alarme', 'Desativado')
+		post2API('Desativado')
 	sleep(0.3) #pequeno delay para o caso do botao acionar mais de uma vez
 
 #Declarção dos pinos utilizados para leds + botão
@@ -105,6 +105,7 @@ gpio.setup(27,  gpio.IN, pull_up_down=gpio.PUD_UP)
 ledAmarelo.on()
 ledVerde.off()
 ledVermelho.off()
+takeFoto = True
 while True:
 	try:
 		#Recebe valor do botão
@@ -117,7 +118,6 @@ while True:
 				input_value = gpio.input(27)
 		#Recebe-se o estado através da API para representação com a led
 		estado = getEstado()
-		takeFoto = True
 		if estado=='Desativado':
 			#Para que não seja tirada uma foto em cada iteração, é preciso verificar
 			#Quando o alarme estava ativo, e então foi desativado
