@@ -6,7 +6,7 @@
         if (!isset($dados['estado'], $dados['hora'], $dados['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
-            exit;
+            return;
             }
 
         $estado = $dados['estado'];
@@ -17,15 +17,15 @@
 
         //file_put_contents devolve false em caso de falha
         // Cifra cada valor antes de escrever .txt
-        $ret_escrita  = file_put_contents("files/alarme/estado.txt", cifrar($estado))  !== false;
-        $ret_escrita  = $ret_escrita && file_put_contents("files/alarme/hora.txt",  cifrar($hora))   !== false;
+        $ret_escrita  = file_put_contents("files/alarme/estado.txt", $estado)  !== false;
+        $ret_escrita  = $ret_escrita && file_put_contents("files/alarme/hora.txt", $hora)   !== false;
 
-        $ret_escrita = $ret_escrita && appendLog($hora . ";" . $estado . ";" . $origem);
+        $ret_escrita = $ret_escrita && file_put_contents("files/alarme/log.txt", $hora . ";" . $estado . ";" . $origem . PHP_EOL . PHP_EOL, FILE_APPEND)  !== false;
 
         if (!$ret_escrita) {
             http_response_code(500);
             echo "Erro ao escrever nos ficheiros da API";
-            exit;
+            return;
         }
         http_response_code(200);
         echo "OK";          
@@ -35,14 +35,14 @@ function enviarAPI($get): void{
     if (!isset($get['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
-            exit;
+            return;
             }
     $origem = $get['origem'];
 
     if($origem == "Arduino" || $origem == "Dashboard" || $origem == "Raspberry"){
 
-        $estado = file_get_contents("files/$nome/estado.txt");
-        $hora   = file_get_contents("files/$nome/hora.txt");
+        $estado = file_get_contents("files/alarme/estado.txt");
+        $hora   = file_get_contents("files/alarme/hora.txt");
         if ($estado === false || $hora === false) {
             http_response_code(500);
             echo "Erro ao ler os ficheiros da API";
@@ -55,7 +55,7 @@ function enviarAPI($get): void{
         if ($log === false) {
             http_response_code(500);
             echo "Erro ao ler os logs da API";
-            exit;
+            return;
             }
             http_response_code(200);
             echo "$log";
