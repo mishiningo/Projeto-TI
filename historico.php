@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyHome</title>
+    <title>Historico MyHome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <!-- Imports da fonte (warning css) -->
@@ -42,8 +42,8 @@
                 <a href="historico.php" class="nav-link active">Histórico</a>
             </li>
         </ul>
-        <a href="logout.php">
-            <button type="button" class="btn btn-logout">Logout</button>
+        <a href="logout.php" class="btn btn-logout">
+            Logout
         </a>
     </div>
     </nav>
@@ -53,7 +53,7 @@
             <div class="col-sm-12 mb-4">
                 <div class ="myHomeStyle d-flex justify-content-center">
                     <div class="welcome rounded-border pt-2 text-center">
-                        <h2>Histórico</h2>
+                        <h1>Histórico</h1>
                     </div>
                 </div>
             </div>

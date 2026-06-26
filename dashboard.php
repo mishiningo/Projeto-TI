@@ -45,16 +45,16 @@
 				}
 			?>
         </ul>
-        <a href="logout.php">
-            <button type="button" class="btn btn-logout">Logout</button>
-        </a>
+			<a href="logout.php" class="btn btn-logout">
+				Logout
+			</a>
     </div>
     </nav>
 	<div class="container-sm">
 		<div class="row myHomeStyle text-center my-3 d-flex justify-content-center"> 
 			<div class="welcome rounded-border pt-2">
 			<?php 
-				echo "<h3>Seja bem vindo, " . $_SESSION['username'] . "!</h3>";
+				echo "<h1>Seja bem vindo, " . $_SESSION['username'] . "!</h1>";
 			?>
 			</div>
 		</div>

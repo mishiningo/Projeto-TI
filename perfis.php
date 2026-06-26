@@ -44,21 +44,21 @@ Mensagem de criação bem sucedida -> TODO
                 <a href="historico.php" class="nav-link">Histórico</a>
             </li>
         </ul>
-        <a href="logout.php">
-            <button type="button" class="btn btn-logout">Logout</button>
+        <a href="logout.php" class="btn btn-logout">
+            Logout
         </a>
     </div>
     </nav>
       <div class="container-sm">
         <div class ="myHomeStyle d-flex justify-content-center mt-3">
             <div class="welcome rounded-border pt-2 text-center">
-                <h2>Gestor de Perfis</h2>
+                <h1>Gestor de Perfis</h1>
             </div>
         </div>
         <br>
         <br>
         <div class="row justify-content-evenly">
-            <div class="col-sm-4 mb-5">
+            <div class="col-sm-6 mb-5">
                 <div class="card text-center turquesa">
                     <div class = "card-header">
                         <b>Lista de perfis</b>
@@ -66,12 +66,10 @@ Mensagem de criação bem sucedida -> TODO
                     <div class="card-body">
                         <table class="table table-striped-columns align-middle gelo rounded-table">
                             <thead>
-                                <th>
-                                    Perfis
-                                </th>
-                                <th>
-                                    Nível
-                                </th>
+                                <tr>
+                                    <th>Perfis</th>
+                                    <th>Nível</th>
+                                </tr>
                             </thead>
                             <tbody id="tabela-utilizadores">
                             </tbody>
@@ -88,16 +86,16 @@ Mensagem de criação bem sucedida -> TODO
                         <form method="post" action="API/userAPI.php">
                             <div class="mb-3 gelo rounded-border">
                                 <label for="inputUsername" class="form-label">Utilizador</label>
-                                <input type="text" class="inputs form-control" id="inputUsername" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
+                                <input type="text" class="inputs form-control py-2" id="inputUsername" aria-describedby="emailHelp" placeholder="Seu nome de utilizador" name="username" required>
                             </div>
                             <div class="mb-3 gelo rounded-border">
                                 <label for="inputPassword" class="form-label">Palavra-passe</label>
-                                <input type="password" class="inputs form-control" id="inputPassword" placeholder="Sua palavra-passe" name="password" required>
+                                <input type="password" class="inputs form-control py-2" id="inputPassword" placeholder="Sua palavra-passe" name="password" required>
                             </div>
                             <div class="gelo rounded-border">
                                 <label for="selectNivel" class="form-label">Nivel de acesso</label>
                                 <br>
-                                <div class="inputs py-1">
+                                <div class="inputs py-2">
                                     <select id="selectNivel" name="nivel">
                                         <option value="visitante" selected>Visitante</option>
                                         <option value="morador">Morador</option>
@@ -105,13 +103,13 @@ Mensagem de criação bem sucedida -> TODO
                                     </select>
                                 </div>
                             </div>
-                    </div>                        
-                    <div class="card-footer">
-                        <div class="container-button gelo rounded-border py-1">
-                            <button type="submit" class="btn btn-myhome">Enviar</button>    
+                            <div class="card-footer">
+                            <div class="container-button gelo rounded-border py-1">
+                            <button type="submit" class="btn btn-myhome my-1">Enviar</button> 
+                            </div>
                         </div>
-                    </div>
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
