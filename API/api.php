@@ -66,7 +66,7 @@ function appendLog(string $novaLinha): bool {
         if (!isset($dados['estado'], $dados['hora'], $dados['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
-            return;
+            exit;
             }
 
         $estado = $dados['estado'];
@@ -84,7 +84,7 @@ function appendLog(string $novaLinha): bool {
         if (!$ret_escrita) {
             http_response_code(500);
             echo "Erro ao escrever nos ficheiros da API";
-            return;
+            exit;
         }
         http_response_code(200);
         echo "OK";          
@@ -94,7 +94,7 @@ function enviarAPI($get): void{
     if (!isset($get['origem'])) {
             http_response_code(400);
             echo "Faltam parâmetros";
-            return;
+            exit;
             }
     $origem = $get['origem'];
 
@@ -113,7 +113,7 @@ function enviarAPI($get): void{
         if ($log === false) {
             http_response_code(500);
             echo "Erro ao ler os logs da API";
-            return;
+            exit;
             }
             http_response_code(200);
             echo decifrar($log);
@@ -133,7 +133,7 @@ function enviarAPI($get): void{
         echo "Método não permitido";
     }
 
-    if(isset($_POST['origem']) && $_POST['origem'] === "Dashboard"){
+    if(isset($_POST['origem']) && $_POST['origem'] == "Dashboard"){
         header("Location: ../dashboard.php");
     }
 ?>

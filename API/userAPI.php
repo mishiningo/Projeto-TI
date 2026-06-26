@@ -3,7 +3,7 @@
     require_once '../auth.php';
     header('Content-Type: text/html; charset=utf-8');
     //Verifica se é um administrador que o está a fazer
-    if (!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] !== 'admin') {
+    if (!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] != 'admin') {
         http_response_code(403);
         echo "Acesso negado";
         return;

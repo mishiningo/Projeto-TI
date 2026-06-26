@@ -69,7 +69,7 @@ def capturar_e_enviar():
 	# Função para realizar o post do botão para a API
 def post2API(estado):
 	agora = datetime.datetime.now()
-	payload = {'nome': 'alarme' , 'estado': estado, 'hora': agora.strftime("%Y-%m-%d %H:%M:%S"), 'origem': 'Raspberry' }
+	payload = {'estado': estado, 'hora': agora.strftime("%Y-%m-%d %H:%M:%S"), 'origem': 'Raspberry' }
 	r = requests.post('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/api.php', data=payload)
 	if r.status_code == 200:
 		print("Pedido bem sucedido")

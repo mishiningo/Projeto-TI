@@ -92,7 +92,7 @@
 					</div>
 					<div class="card-footer">
 						Clique para alterar o estado do alarme
-					<div>
+					</div>
 				</div>
 			</div>
 		</div>

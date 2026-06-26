@@ -9,7 +9,7 @@
             // Neste caso preg_match verifica se o utilizador possui apenas a-z, 0-9 ou _
             // E pelo menos um char (+). Qualquer coisa fora disso sai do padrão entregue e é devolvido 0
         }else {
-            if(!file_exists(API/files/utilizadores/hashs/" . $_POST['username'] .".txt)){
+            if(!file_exists("API/files/utilizadores/hashs/" . $_POST['username'] . ".txt")){
                 // Caso do ficheiro não existir
                 $erro = "<div class=\"erro\"><h4>Credenciais inválidas!</h4></div>";
             }else{
@@ -20,7 +20,7 @@
                         $_SESSION["nivel"]=file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . ".txt");
                         header("refresh:0;url=dashboard.php");
                     }else{
-                            $erro = "<div class=\"erro\"><h4>Crendeciais inválidas!</h4></div>";
+                            $erro = "<div class=\"erro\"><h4>Credenciais inválidas!</h4></div>";
                             }
             }
         }
@@ -45,7 +45,7 @@
         <div class="row w-100 justify-content-center">
                 <form class="LoginForm myHomeStyle" method ="post">
                     <a href="login.php">
-                        <img src="imagens/logo.png" class ="rounded float-center logo">
+                        <img src="imagens/logo.png" class ="rounded float-center logo" alt="My Home logo">
                     </a>
                     <?php if (isset($erro)) {echo $erro;} ?>
                     <div class="mb-3">
