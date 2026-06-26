@@ -1,5 +1,6 @@
 <?php
   require_once 'auth.php';
+  require_once 'API/cifragem.php';
   
   if(isset($_POST['password']) and isset($_POST['username'])){
         if (!preg_match('/^[a-zA-Z0-9_]+$/', $_POST['username'])) {
@@ -15,13 +16,20 @@
             }else{
                 $pass_hash = file_get_contents("API/files/utilizadores/hashs/" . $_POST['username'] .".txt");
                 if (password_verify ($_POST['password'], $pass_hash)){
-                        echo "Credenciais corretas!";
+                    try{
+                        // Passe certa, verifica-se se os dados existem e se a decifragem do nível de utilizador é bem sucedida
                         $_SESSION["username"]=$_POST['username'];
-                        $_SESSION["nivel"]=file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . ".txt");
+                        $_SESSION["nivel"] = decifrar(trim(file_get_contents("API/files/utilizadores/niveis/" . $_POST['username'] . ".txt")));
                         header("refresh:0;url=dashboard.php");
+                        } catch (RuntimeException $e) {
+                            // Chama mensagem relacionada com a exceção lançada na função decifrar, caso ocorra algum erro de decifragem
+                            // Semelhante ao errno do C, mas lançada e definida por mim
+                            echo $e->getMessage();
+                        }
                     }else{
+                            // Passe errada
                             $erro = "<div class=\"erro\"><h4>Credenciais inválidas!</h4></div>";
-                            }
+                        }
             }
         }
   }   

@@ -47,10 +47,10 @@
         </a>
     </div>
     </nav>
-	<div class="container-md turquesa-border my-4">
+	<div class="container-sm turquesa-border my-4">
         <br>
         <div class = "row mb-4">
-            <div class="col-md-12 mb-4">
+            <div class="col-sm-12 mb-4">
                 <div class ="myHomeStyle d-flex justify-content-center">
                     <div class="welcome rounded-border pt-2 text-center">
                         <h2>Histórico</h2>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <h2>Estado do Alarme</h2>
                 <hr class="turquesa-border">
                 <div style="position: relative; height: 220px;">
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <table class="table rounded-table">
                     <thead>
                         <tr>
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="container-md turquesa-border py-4">
+    <div class="container-sm turquesa-border py-4 mb-3">
         <h2>
             Últimas 10 entradas de imagens:
         </h2>

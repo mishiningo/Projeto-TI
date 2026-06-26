@@ -59,7 +59,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 mb-4">
+			<div class="col-sm-6 mb-4">
 				<div class="card h-100 text-center myHomeStyle">
 					<div class="card-header">
 						Estado do alarme: 
@@ -77,7 +77,7 @@
 			</div>
 			<br>
 			<br>
-			<div class="col-md-6 mb-4">
+			<div class="col-sm-6 mb-4">
 				<div class="card h-100 text-center myHomeStyle">
 					<div class="card-header">	
 						<b>Controlo do alarme</b>
@@ -99,7 +99,7 @@
 	</div>
 	<div class="container-sm">        
 		<div class="row my-4">
-			<div class="col-md-12">
+			<div class="col-sm-12">
 				<div class="card myHomeStyle text-center">
 					<div class="card-header">
 						Última fotografia registada:

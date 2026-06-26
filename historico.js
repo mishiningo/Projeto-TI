@@ -142,7 +142,7 @@ async function carregarImagem() {
         // Para cada nomeImagem em imagens executa o definido no callback
         imagens.forEach(nomeImagem => {
             container.innerHTML += `
-                <div class="col-md-4 mb-3">
+                <div class="col-sm-4 mb-3">
                     <div class="card">
                         <img src="API/files/webcam/${nomeImagem.trim()}" class="card-img-top" alt="${nomeImagem.trim()}">
                         <div class="card-footer text-center">
