@@ -160,5 +160,6 @@ pedido();
 carregarImagem();
 //Atualizações a cada 5 segundos
 setInterval(pedido, 5000);
-setInterval(carregarImagem, 5000);
+// Por se tratar de um ficheiro mais pesado um intevalo mais espaçado é o ideal
+setInterval(carregarImagem, 50000);
     

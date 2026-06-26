@@ -92,7 +92,33 @@
             console.error("Falha ao atualizar:", erro);
         }
     }
+    // Função para carregar a última imagem
+    async function carregarUltimaFoto() {
+    try {
+        const r = await fetch('API/gestorFotos.php?solicitante=dashboard');
+        
+        if (!r.ok) {
+            console.error('Erro ao buscar foto:', r.status);
+            return;
+        }
+
+        const nomeImagem = await r.text();
+
+        document.getElementById('corpo-foto').innerHTML = 
+            `<img src="API/files/webcam/${nomeImagem.trim()}" class="img-fluid rounded" alt="Última fotografia">`;
+        
+        document.getElementById('rodape-foto').innerHTML = 
+            `Imagem: <b>${nomeImagem.trim()}</b>`;
+
+    } catch (e) {
+        console.error('Erro na comunicação:', e);
+    }
+}
+
     pedido();
     //Atualizações a cada 5 segundos
     setInterval(pedido, 5000);
+    carregarUltimaFoto();
+    // Ficheiros maiores = mais intervalado
+    setInterval(carregarUltimaFoto, 50000);
     

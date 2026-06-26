@@ -55,13 +55,13 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6 mb-4">
-				<div class="card h-100 text-center">
+				<div class="card h-100 text-center myHomeStyle">
 					<div class="card-header">
 						Estado do alarme: 
 						<b id="label-estado">
 						</b>
 					</div>
-					<div class="card-body" id="imagem-alarme">
+					<div class="card-body gelo" id="imagem-alarme">
 					</div>
 					<div class="card-footer">
 						Data e hora da última atualização: 
@@ -73,11 +73,11 @@
 			<br>
 			<br>
 			<div class="col-md-6 mb-4">
-				<div class="card h-100 text-center">
+				<div class="card h-100 text-center myHomeStyle">
 					<div class="card-header">	
 						<b>Controlo do alarme</b>
 					</div>
-					<div class="card-body">
+					<div class="card-body gelo">
 						<form method="POST"  action="API/api.php">
 							<input type="hidden" name="origem" value="Dashboard">
 							<input type="hidden" name="nome" value="alarme">
@@ -92,20 +92,22 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-4">
+	</div>
+	<div class="container-sm">        
+		<div class="row my-4">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card myHomeStyle text-center">
 					<div class="card-header">
 						Última fotografia registada:
 					</div>
-					<div class="card-body">
+					<div class="card-body" id="corpo-foto">
 						<!-- última foto -->
 					</div>
-					<div class ="card-footer"></div>
+					<div class ="card-footer" id=""></div>
 				</div>
 			</div>
-		</div>
-	</div>        
+		</div>	
+	</div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
