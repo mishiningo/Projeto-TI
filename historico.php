@@ -43,7 +43,7 @@
         </a>
     </div>
     </nav>
-	<div class="container-sm">
+	<div class="container-md turquesa-border my-4">
         <br>
         <div class = "row mb-4">
             <div class="col-md-12 mb-4">
@@ -57,12 +57,15 @@
         <div class="row mb-4">
             <div class="col-md-12">
                 <h2>Estado do Alarme</h2>
+                <hr class="turquesa-border">
                 <div style="position: relative; height: 220px;">
                     <!-- Secção para gráfico -->
                     <canvas id="grafico-alarme"></canvas>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
                 <table class="table rounded-table">
                     <thead>
                         <tr>
@@ -74,8 +77,18 @@
                     <tbody id="tabela-historico">
                         <!-- As linhas da tabela serão preenchidas dinamicamente pelo JavaScript -->
                     </tbody>
+                </table>
             </div>
         </div>
+    </div>
+    <div class="container-md turquesa-border py-4">
+        <h2>
+            Últimas 10 entradas de imagens:
+        </h2>
+        <hr class="turquesa-border">
+        <div class ="row" id="historico-fotos">
+        </div>
+    </div>
 		
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

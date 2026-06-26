@@ -92,6 +92,19 @@
 				</div>
 			</div>
 		</div>
+		<div class="row mt-4">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						Última fotografia registada:
+					</div>
+					<div class="card-body">
+						<!-- última foto -->
+					</div>
+					<div class ="card-footer"></div>
+				</div>
+			</div>
+		</div>
 	</div>        
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
