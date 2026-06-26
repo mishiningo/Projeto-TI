@@ -48,7 +48,7 @@ def capturar_e_enviar():
 			
 			try:
 				# Envia o ficheiro para o upload.php via POST
-				r = requests.post('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/upload.php', files=ficheiros)
+				r = requests.post('https://iot.dei.estg.ipleiria.pt/ti/ti061/ProjetoTI/API/gestorFotos.php', files=ficheiros)
 				if r.status_code == 200:
 					print("[+] Sucesso: Imagem guardada no servidor do site!")
 					return True

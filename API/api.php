@@ -2,7 +2,7 @@
     header('Content-Type: text/html; charset=utf-8');
     //Declaracão da chave de cifragem (criada em openssl)
     //Parse_ini.. cria um array associativo ([X] => Y)
-    $env = parse_ini_file('../.env');
+    $env = parse_ini_file(__DIR__ . '/../.env');
     //Trim limpa espaços em branco
     //hex2bin converte a chave guardada em hexadecimal para binario
     define('ALARM_KEY', hex2bin(trim($env['ALARM_KEY'])));

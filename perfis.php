@@ -17,7 +17,8 @@ Mensagem de criação bem sucedida -> TODO
     <?php
     if (!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] !== 'admin') {
         echo "<div class=\"erro\"><h4>Acesso negado!</h4></div>";
-        return;
+        header("refresh:5;url=login.php");
+        die();
     }
     ?>
     <!-- Navbar feita pelo claude -> analisar depois -->

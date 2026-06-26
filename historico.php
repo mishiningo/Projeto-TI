@@ -2,7 +2,7 @@
 <html lang="pt">
 <?php 
 	require_once 'auth.php';
-	if(!isset($_SESSION['username'], $_SESSION['nivel'])){
+	if(!isset($_SESSION['username'], $_SESSION['nivel']) || $_SESSION['nivel'] != 'visitante'){
     	header("refresh:5;url=login.php");
     	die("Acesso Restrito");
   }
