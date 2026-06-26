@@ -9,15 +9,15 @@ import cv2
 #Função para a captura e envio de fotos
 def capturar_e_enviar():
 		nomeData = str(datetime.datetime.now())
-		nomeFicheiro = nomeData.replace(" ", "").replace("-", "_").replace(":","_").replace(".","")
+		nomeFicheiro = nomeData.replace(" ", "").replace("-", "_").replace(":","_").replace(".","") + ".jpg"
 		
 		print("A ligar  DroidCam...")
 		webcam_url = "http://10.20.228.179:4747/video"
 		cap = cv2.VideoCapture(webcam_url)
 		#Verificação acerca da ligação da câmera
 		if not cap.isOpened():
-    		print("Erro: Não foi possível ligar à DroidCam.")
-    		return False
+			print("Erro: Não foi possível ligar à DroidCam.")
+			return False
 		 
 		#Espera 3 segundos com a camara ligada para não haver sobrecarga no servidor
 		time.sleep(3)
