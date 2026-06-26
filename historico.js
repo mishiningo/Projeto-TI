@@ -98,7 +98,7 @@ async function pedido() {
         respostaVetor.forEach(item => {
             // Casos encontrados como Desativados30 passam a Desativado por 30s, mas apenas as matches!!
             const itemFormatado = item.replace("Desativado30", "Desativado por 30s");
-            // Separação do vetor usando o ; e mapeia as colunas para criar as células da tabela, depois junta tudo em uma única string
+            // Separação do vetor usando o ; e mapeia as colunas para criar as células da tabela, depois junta tudo em uma única string separada por strings vazia, ou seja, juntas
             const partes = itemFormatado.split(";").map(col => col.trim());
             const colunas = partes.map(col => `<td>${col}</td>`).join("");
             elementoHistorico.innerHTML += `<tr>${colunas}</tr>`;
