@@ -45,9 +45,8 @@
 										<button type="submit" name="estado" value="Desativado30" class="btn-imagem">
 											<img src="imagens/off30.png" class="imgAlarme" title="Clique para desativar por 30s">
 										</button>
-									    <hr>
-									</td>
-								</tr> `;
+                                        </td>
+                                        </tr> `;
                         if (nivelUtilizador !== "visitante"){
                             //nivelUtilizador tem de ser passada dentro da dashboard
                             // Admin e utilizadores normais veem os dois botões
@@ -104,11 +103,26 @@
 
         const nomeImagem = await r.text();
 
-        document.getElementById('corpo-foto').innerHTML = 
-            `<img src="API/files/webcam/${nomeImagem.trim()}" class="img-fluid rounded" alt="Última fotografia">`;
-        
-        document.getElementById('rodape-foto').innerHTML = 
-            `Imagem: <b>${nomeImagem.trim()}</b>`;
+    if (nivelUtilizador !== "visitante"){
+        document.getElementById('container-foto').innerHTML = 
+            `  <div class="row my-4">				
+						<div class="col-sm-12">
+							<div class="card myHomeStyle text-center">
+								<div class="card-header">
+									Última fotografia registada:
+								</div>
+								<div class="card-body" id="corpo-foto">
+                                <img src="API/files/webcam/${nomeImagem.trim()}" class="img-fluid rounded" alt="Última fotografia">
+							    </div>
+								<div class ="card-footer" id="rodape-foto">
+                                Imagem: <b>${nomeImagem.trim()}</b>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+    }
 
     } catch (e) {
         console.error('Erro na comunicação:', e);
@@ -120,5 +134,5 @@
     setInterval(pedido, 5000);
     carregarUltimaFoto();
     // Ficheiros maiores = mais intervalado
-    setInterval(carregarUltimaFoto, 50000);
+    setInterval(carregarUltimaFoto, 30000);
     

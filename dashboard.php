@@ -97,21 +97,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-sm">        
-		<div class="row my-4">
-			<div class="col-sm-12">
-				<div class="card myHomeStyle text-center">
-					<div class="card-header">
-						Última fotografia registada:
-					</div>
-					<div class="card-body" id="corpo-foto">
-						<!-- última foto -->
-					</div>
-					<div class ="card-footer" id="rodape-foto"></div>
-				</div>
-			</div>
-		</div>	
-	</div>
+		<div class="container-sm" id="container-foto">        		
+		</div>
+
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
