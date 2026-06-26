@@ -84,8 +84,9 @@ async function pedido() {
         // Conversão da resposta para texto e depois vetor
         const respostaTexto = await resposta.text();
         //Separação do vetor usando a quebra de linha (tanto windows quanto linux) como referencia.
-        //Filtra linhas vazias e pega apenas as últimas 10 entradas
-        const respostaVetor = respostaTexto.split(/\r?\n/).filter(linha => linha.trim() !== "").slice(-10);
+        //Filtra linhas vazias e pega apenas as últimas 10 entradas e inverte o vetor pois o log cresce para baixo
+        const respostaVetor = respostaTexto.split(/\r?\n/).filter(linha => linha.trim() !== "").slice(-10).reverse();
+        
         
         //Declaração dos elementos do gráfico
         const labels  = [];
@@ -142,7 +143,7 @@ async function carregarImagem() {
         // Para cada nomeImagem em imagens executa o definido no callback
         imagens.forEach(nomeImagem => {
             container.innerHTML += `
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-2 mb-3">
                     <div class="card">
                         <img src="API/files/webcam/${nomeImagem.trim()}" class="card-img-top" alt="${nomeImagem.trim()}">
                         <div class="card-footer text-center">

@@ -87,7 +87,7 @@
     </div>
     <div class="container-sm turquesa-border py-4 mb-3">
         <h2>
-            Últimas 10 entradas de imagens:
+            Últimas entradas de imagens:
         </h2>
         <hr class="turquesa-border">
         <div class ="row" id="historico-fotos">

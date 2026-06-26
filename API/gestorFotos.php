@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }else if ($_GET['solicitante'] == "historico"){
         // historico requer as ultimas 10 imagens mais recentes
         // $limite é para o caso de não haverem pelo menos 10 imgs (sofri pra descobrir isso)
-        $limite = min(10, count($imagens));
+        $limite = min(12, count($imagens));
         for ($i = 0; $i < $limite; $i++){
             echo basename($imagens[$i]) . "\n";
         }
