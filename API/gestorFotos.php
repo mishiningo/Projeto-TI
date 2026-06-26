@@ -3,6 +3,27 @@ header('Content-Type: text/html; charset=utf-8');
 // Pedidos POST são para receção de fotos
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['imagem'])){
+        // Verificação de erros de upload do próprio PHP
+        if ($_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
+            http_response_code(400);
+            echo "Erro no upload: código " . $_FILES['imagem']['error'];
+            exit;
+        }
+        // Verificação do tamanho máximo proposto no enunciado (1000 KB = 1000000 bytes)
+        if ($_FILES['imagem']['size'] > 1000000) {
+            http_response_code(400);
+            echo "Erro: imagem demasiado grande (máximo 1000 KB)";
+            exit;
+        }
+        //Verificação do conteúdo real do ficheiro (mais seguro que a extensão)
+        // mime_content_type verifica o conteudo do ficheiro para obter o mime type
+        $tipoReal = mime_content_type($_FILES['imagem']['tmp_name']);
+        // Verifica se os mimetypes indicados estão no array
+        if (!in_array($tipoReal, ['image/jpeg', 'image/png'])) {
+            http_response_code(400);
+            echo "Erro: ficheiro não é uma imagem válida";
+            exit;
+        }
         if (move_uploaded_file($_FILES['imagem']['tmp_name'], 'files/webcam/' . $_FILES['imagem']['name'])) {
             echo ("Imagem recebida e salva com sucesso");
             http_response_code(200);
@@ -25,7 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             return;
         }
 
-        $imagens = glob('files/webcam/*.jpg');
+        //Modificador GLOB_Brace permite buscar imagens que atendam ao padrão
+        // Entre {}
+        $imagens = glob('files/webcam/*.{jpg,jpeg,png}', GLOB_BRACE);
         if (empty($imagens)) {
         http_response_code(404);
         echo "Nenhuma imagem encontrada";
