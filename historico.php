@@ -105,13 +105,18 @@
                 <!-- Cabeçalho (parte junta ao titulo) -->
                 <div class="modal-header border-0">
                     <!-- Titulo do moldal (alterado dps em js pelo boostrap) -->
-                    <h6 class="modal-title text-white" id="modalFotoCaption"></h6>
+                    <!-- Trooca em relação ao padrão por conta dos validadores -->
+                    <span class="modal-title h5 text-white" id="modalFotoCaption">Carregando...</span>
                     <!-- Botão de fechamento -->
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <!-- Body e destino da imagem vai -->
                 <div class="modal-body text-center p-2">
-                    <img id="modalFotoImg" src="" alt="" class="img-fluid rounded">
+                   <!--Atribuição de imagem generica (quase) não visivel para não disparar validadores  -->
+                <img id="modalFotoImg" 
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" 
+                    alt="Últimas fotos tiradas associadas ao alarme" 
+                    class="img-fluid rounded">
                 </div>
             </div>
         </div>

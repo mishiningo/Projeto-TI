@@ -1,6 +1,3 @@
-<!-- 
-Mensagem de criação bem sucedida -> TODO
--->
 <?php 
      require_once 'auth.php';
 ?>
