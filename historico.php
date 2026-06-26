@@ -93,9 +93,32 @@
         <div class ="row" id="historico-fotos">
         </div>
     </div>
-		
+    <!-- Modal de imagem -->
+    <!-- Trata-se de camadas de div, onde uma é a animação, outra a cor de fundo, borda, uma centra a imagem, a outra recebe-a efetivamente, botão para sair e etc -->
+    
+    <!-- Animações e  container da img-->
+    <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+        <!-- Centralização -->
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <!-- Controno/Borda -->
+            <div class="modal-content turquesa border-0">
+                <!-- Cabeçalho (parte junta ao titulo) -->
+                <div class="modal-header border-0">
+                    <!-- Titulo do moldal (alterado dps em js pelo boostrap) -->
+                    <h6 class="modal-title text-white" id="modalFotoCaption"></h6>
+                    <!-- Botão de fechamento -->
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Body e destino da imagem vai -->
+                <div class="modal-body text-center p-2">
+                    <img id="modalFotoImg" src="" alt="" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script src="historico.js"></script>
+</body>
 </html>

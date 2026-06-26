@@ -141,21 +141,50 @@ async function carregarImagem() {
         container.innerHTML = '';
 
         // Para cada nomeImagem em imagens executa o definido no callback
+        //Neste caso insere-se a imagem com as definições recomendadas para utilização do "Modal" do bootstrap
+        // Indica que a imagem abre um modal, qual modal e informações p/ acessibilidade
         imagens.forEach(nomeImagem => {
+            const src = `API/files/webcam/${nomeImagem.trim()}`;
             container.innerHTML += `
-                <div class="col-sm-2 mb-3">
-                    <div class="card">
-                        <img src="API/files/webcam/${nomeImagem.trim()}" class="card-img-top" alt="${nomeImagem.trim()}">
-                        <div class="card-footer text-center">
-                            <small>${nomeImagem.trim()}</small>
-                        </div>
+            <div class="col-sm-2 mb-3">
+                <div class="card">
+                    <img src="${src}" class="card-img-top gallery-img" alt="${nomeImagem.trim()}"
+                        style="cursor:pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalFoto"
+                        data-src="${src}"
+                        data-caption="${nomeImagem.trim()}">
+                    <div class="card-footer text-center"
+                        style="cursor:pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalFoto"
+                        data-src="${src}"
+                        data-caption="${nomeImagem}">
+                    <small>${nomeImagem.trim()}</small>
                     </div>
-                </div>`;
-        });
+                </div>
+            </div>`;
+
+    });
         } catch (erro) { //Caso de erro
         console.error('Erro na comunicação:', erro);
     }
 }
+
+//Fica a espera (listen) de um click, e quanto isto acontece no elemento e
+// neste caso usa como elemento a página toda (document)
+document.addEventListener('click', e => {
+    // Para cada click existe um e(lemento), este pode possuir um parente
+    // Com o atributo data-bs-target="#modalFoto", indicativo de que pertence o modal 
+    const el = e.target.closest('[data-bs-target="#modalFoto"]');
+    if (el) {
+        // Caso exista relação parentesca e exista el (DOM)
+        // Encontra na página a tag de imagem (<img>) que tem o ID modalFotoImg e lhe atribui o src de dataset.src de el (img ampliada)
+        document.getElementById('modalFotoImg').src = el.dataset.src;
+        // Encontra na página a tag de texto que tem o ID modalFotoCaption e lhe atribui o texto de dataset.caption de el (legenda da img ampliada)
+        document.getElementById('modalFotoCaption').textContent = el.dataset.caption;
+    }
+});
 
 pedido();
 carregarImagem();
